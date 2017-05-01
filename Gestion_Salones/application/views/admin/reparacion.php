@@ -1,7 +1,3 @@
-<?php if(!$this->session->userdata('nombre_usuario')){
-		redirect(base_url());
-	}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,10 +37,12 @@
 	<link rel="shortcut icon" href="img/favicon.ico">
 	<!-- end: Favicon -->
 	<style>
-		#repar>ul{
+		.ocultar,#supertabla{display: none ;}
+		#id_reparacion, #id_reparacion_modal{display: none !important;}
+		#reparacion>ul{
 			display: block;
 		}
-		#repar{
+		#reparacion{
 			background: #578EBE;
 		}
 	</style>
@@ -151,6 +149,7 @@
 							<label class="control-label" for="selectsalonconsulta">Aula</label>
 							<div class="controls">
 							 <select id="selectsalonconsulta" data-rel="chosen" name="salon">
+							 	<option value="---">---</option>
 							<?php
 							 	foreach ($listarsalon as $salon) {
 							 	?><option value="<?php echo $salon['id_salon']; ?>"><?php echo     $salon['aula'].'-'.$salon['ubicacion']; ?></option><?php
@@ -205,29 +204,32 @@
 						<h2><i class="halflings-icon white search"></i><span class="break"></span>Consultar Reparaciones</h2>
 					</div>
 					<div class="box-content">
-						<form class="form-horizontal">
+						<form class="form-horizontal" method="post" action="consultarequipos">
 						  <fieldset>
-						    <div class="control-group">
-								<label class="control-label" for="selectError">VideoBeam</label>
-								<div class="controls">
-								  <select id="selectVideo" data-rel="chosen">
-									<option>video1</option>
-									<option>video2</option>
-									<option>video3</option>
-									<option>video4</option>
-									<option>video5</option>
-								  </select>
-								</div>
+							<div class="control-group">
+							  <label class="control-label" for="date02" >Fecha Reparacion </label>
+							  <div class="controls">
+								<input type="text" class="input-xlarge datepicker" id="date02" placeholder="02/16/17" name="fecha_reparacion">
+								<!--  en los imput poner un atributo name, el cual y le pongo el nombre que quiera, ese atributo me indica el nombre de la funcion que debo utilizar en el ontroaldor para darle funcionailidad, ese name me captura los datos del formulario  -->
+							  </div>
 							</div>
 							<div class="control-group">
-							  <label class="control-label" for="date01">Fecha Reparacion</label>
-							  <div class="controls">
-								<input type="text" class="input-xlarge datepicker" id="date01" placeholder="02/16/17">
-							   </div>
+							<label class="control-label" for="selectsalonConsulta2">Aula</label>
+							<div class="controls">
+							 <select id="selectsalonConsulta2" data-rel="chosen" name="salon">
+							 	<option value="---">---</option>
+							<?php
+							 	foreach ($listarsalon as $salon) {
+							 	?><option value="<?php echo $salon['id_salon']; ?>" "<?php echo $salon['id_salon']; ?>"><?php echo $salon['aula'].'-'.$salon['ubicacion']; ?></option><?php
+							 	}
+							 	?>
+							 </select>
 							</div>
+						</div>  
+							  
 							<div class="form-actions">
-							  <button type="submit" class="btn btn-primary">Consultar</button>
-							  <button type="submit" class="btn btn-primary">Consulta General</button>
+							 <input type="submit" class="btn btn-primary" value="Consultar" name="consultarcondicion"></input>
+							  <input type="submit" class="btn btn-primary" value="Consulta General" name="consultartodo"></input>
 							</div>
 						  </fieldset>
 						</form>   
@@ -237,7 +239,9 @@
 
 			</div><!--/row-->
 
-			<div class="row-fluid sortable visible" id="tablaR">	
+			
+
+			<div class="row-fluid sortable visible" id="supertabla">	
 				<div class="box span12">
 					<div class="box-header">
 						<h2><i class="halflings-icon white align-justify"></i><span class="break"></span>Reparación</h2>
@@ -246,70 +250,47 @@
 						<table class="table table-bordered table-striped table-condensed">
 							  <thead>
 								  <tr>
-									  <th>Responsable</th>
+
+									  <th>Nombre equipo</th>
+									  <th>Ubicacion</th>
+								<!--	  <th>Responsable</th>  -->
 									  <th>Empresa</th>
 									  <th>Fecha Reparación</th>
-									  <th>Vida Util</th>
+									  <th>Reparacion</th>
+								<!--	  <th>Vida Util (meses)</th>  -->
 									  <th>Opciones</th>                                            
 								  </tr>
 							  </thead>   
 							  <tbody>
-								<tr>
-									<td>Julian Orozco</td>
-									<td class="center">UCP</td>
-									<td class="center">2017/02/27</td>
-									<td class="center">2 AÑOS</td>    
-									<td class="center">
-										<a class="editarReparacion btn btn-info" href="#">
-											<i class="halflings-icon white edit"></i>                                            
-										</a>
-										<a class="borrarReparacion btn btn-danger" href="#">
-											<i class="halflings-icon white trash"></i> 
-										</a>
-									</td>                                  
-								</tr>
-								<tr>
-									<td>Julian Orozco</td>
-									<td class="center">UCP</td>
-									<td class="center">2017/02/27</td>
-									<td class="center">2 AÑOS</td>    
-									<td class="center">
-										<a class="editarReparacion btn btn-info" href="#">
-											<i class="halflings-icon white edit"></i>                                            
-										</a>
-										<a class="borrarReparacion btn btn-danger" href="#">
-											<i class="halflings-icon white trash"></i> 
-										</a>
-									</td>                                  
-								</tr>
-								<tr>
-									<td>Julian Orozco</td>
-									<td class="center">UCP</td>
-									<td class="center">2017/02/27</td>
-									<td class="center">2 AÑOS</td>    
-									<td class="center">
-										<a class="editarReparacion btn btn-info" href="#">
-											<i class="halflings-icon white edit"></i>                                            
-										</a>
-										<a class="borrarReparacion btn btn-danger" href="#">
-											<i class="halflings-icon white trash"></i> 
-										</a>
-									</td>                             
-								</tr>
-								<tr>
-									<td>Julian Orozco</td>
-									<td class="center">UCP</td>
-									<td class="center">2017/02/27</td>
-									<td class="center">2 AÑOS</td>    
-									<td class="center">
-										<a class="editarReparacion btn btn-info" href="#">
-											<i class="halflings-icon white edit"></i>            
-										</a>
-										<a class="borrarReparacion btn btn-danger" href="#">
-											<i class="halflings-icon white trash"></i> 
-										</a>
-									</td>                                  
-								</tr>
+								
+								<?php
+							  		foreach ($listarreparacion as $reparacion) {
+							  			?>
+							  				<tr>
+							  					<td class="ocultar idequipo"><?php echo $reparacion['id_equipos_fisicos']; ?></td>
+							  					<td class="ocultar idsalon"><?php echo $reparacion['id_salon']; ?></td>
+							  					<td class="ocultar idreparacion"><?php echo $reparacion['id_reparacion']; ?></td>
+							  					<td class="center nombre"><?php echo $reparacion['nombre']; ?></td>
+												<td class="center aula"><?php echo  $reparacion['aula'].'-'.$equipo['ubicacion']; ?></td>
+												<td class="ocultar responsable"><?php echo $reparacion['responsable_reparacion']; ?></td>
+												<td class="center empresa"><?php echo $reparacion['empresa_reparacion']; ?></td>
+												<td class="center fecha_reparacion"><?php echo $reparacion['fecha_reparacion']; ?></td>
+												<td class="center reparacion"><?php echo $reparacion['reparacion_realizada']; ?></td>
+												<td class="ocultar vida_util"><?php echo $reparacion['vida_util_reparacion']; ?></td>
+												
+													
+												</td>
+												<td class="center">
+													<a class="editarEquipo btn btn-info" href="#">
+														<i class="halflings-icon white edit"></i>  
+													</a>
+												</td>
+											</tr>
+
+							  			<?php
+							  		}
+							  ?>
+
 							  </tbody>
 						 </table>  
 						 <div class="pagination pagination-centered">
@@ -327,16 +308,70 @@
 					</div>
 				</div><!--/span-->
 			</div><!--/row-->
-			
-    
-
 	    </div><!--/.fluid-container-->
 	
 			<!-- end: Content -->
 		</div><!--/#content.span10-->
 		</div><!--/fluid-row-->
+		<div class="modal hide fade" id="myModalEditarRol">
+			<div class="modal-body">
+				<div class="row-fluid sortable">
+				<div class="box span12">
+				<div class="box-header" data-original-title>
+						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Modificar Rol</h2>
+					</div>
+					<div class="box-content">
+
+						  <fieldset>
+						 	 <input  id="cedula" name="cedula" type="text" ></input>
+							  <div class="control-group">
+								<label class="control-label" for="focusedInput">Nombre</label>
+								<div class="controls">
+								  	<input class="input-xlarge disabled" name="nombre" id="nombre_usuario" type="text" placeholder="Juan Blandon" disabled="">
+								</div>
+							  </div>
+							  <div class="control-group">
+								<label class="control-label" for="focusedInput">Correo</label>
+								<div class="controls">
+								  <input class="input-xlarge focused" id="correo" name="correo" type="text" value="j@gmail.com">
+								</div>
+							  </div>
+							  <div class="control-group">
+								<label class="control-label" for="focusedInput">Telefono</label>
+								<div class="controls">
+								  <input class="input-xlarge focused" name="telefono" id="telefono" type="text" value="3145672345">
+								</div>
+							  </div>
+							  <div class="control-group">
+							  	<label class="control-label" for="focusedInput">Contraseña</label>
+							  	<div class="controls">
+									<input class="input-xlarge focused" name="password" id="password_modal" type="password" placeholder="Conraseña"/>
+								</div>
+							</div>
+						  </fieldset>
+						
+					</div>
+				</div><!--/span-->
+			
+			</div><!--/row-->
+			
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+				<a href="#" class="btn btn-warning">Editar</a>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
 		<!--Modificar Reparacion-->	
-		<div class="modal hide fade" id="myModalEditarReparacion">
+<!--		<div class="modal hide fade" id="myModalEditarReparacion">
 			<div class="modal-body">
 				<div class="row-fluid sortable">
 				<div class="box span12">
@@ -344,24 +379,24 @@
 						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Modificar Reparacion</h2>
 					</div>
 					<div class="box-content">
-						<form class="form-horizontal">
+						<form class="form-horizontal" method="post" action="editar_reparacion">
 						  <fieldset>
 							  <div class="control-group">
 								<label class="control-label" for="focusedInput">Nombre Responsable</label>
 								<div class="controls">
-								  <input class="input-xlarge disabled" id="disabledInput" type="text" placeholder="Julian Cardona" disabled="">
+								  <input class="input-xlarge disabled" id="disabledInput" type="text" placeholder="Julian Cardona" disabled="" name="nombre_responsable">
 								</div>
 							  </div>
 							  <div class="control-group">
 								<label class="control-label" for="focusedInput">Empresa Responsable </label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" value="UCP">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" value="UCP" name="nombre_empresa">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="focusedInput">Vida Util</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" value="1">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" value="1" name="vida_util">
 								</div>
 							</div>  
 							</fieldset>
@@ -376,35 +411,7 @@
 				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
 				<a href="#" class="btn btn-warning">Editar</a>
 			</div>
-		</div>	
-		<!--Eliminar Reparacion-->
-		<div class="modal hide fade" id="myModalEliminarReparacion">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				<h3>Eliminar Reparacion</h3>
-			</div>
-			<div class="modal-body">
-				<p>Esta Seguro que dese eliminar la reparacion?</p>
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-danger">Aceptar</a>
-			</div>
-		</div>
-	<div class="modal hide fade" id="myModal">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Settings</h3>
-		</div>
-		<div class="modal-body">
-			<p>Here settings can be configured...</p>
-		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
-		</div>
-	</div>
-	
+		</div>	-->
 	<div class="clearfix"></div>
 	
 	<footer>
@@ -473,5 +480,40 @@
 		<script src="<?php echo base_url(); ?>public/js/custom.js"></script>
 	<!-- end: JavaScript-->
 	
+
+
+	<?php  $validacion = $this->session->flashdata('carga_usuario');
+		if($validacion=='true'){
+			?>
+				<script type="text/javascript">
+					$(".texto>a").text("Consultar ");
+					$("#registroR").css("display","none");
+					$("#consultaR").css("display","block");
+					$("#supertabla").css("display","block");
+				</script>
+			<?php
+		}
+		$validacion_formulario = $this->session->flashdata('formulario');
+		if($validacion_formulario=='false'){
+			?>
+				<script type="text/javascript">
+				  $('.modal-title').text("Información");	
+				  $('#modal_body').text("Debe de llenar todos los campos solicitados!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}else if($validacion_formulario=='true'){
+			?>
+				<script type="text/javascript">
+				  $('#modal_header').removeClass('btn-danger');
+				  $('#modal_header').addClass('btn-primary');
+				  $('.modal-title').text("Información");	
+				  $('#modal_body').text("Registro exitoso!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}
+	?>	
+
 </body>
 </html>

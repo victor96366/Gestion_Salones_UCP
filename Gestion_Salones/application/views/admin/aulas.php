@@ -1,7 +1,3 @@
-<?php if(!$this->session->userdata('nombre_usuario')){
-		redirect(base_url());
-	}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -147,26 +143,27 @@
 						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Registrar Aula</h2>
 					</div>
 					<div class="box-content">
-						<form class="form-horizontal">
+						<form class="form-horizontal" method="post" action="insertar">
 							<fieldset>
 							  <div class="control-group">
 								<label class="control-label" for="focusedInput">Aula</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="232">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="232" name="aula">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="selectError">Ubicación</label>
 								<div class="controls">
-								  <select id="selectVideo" data-rel="chosen">
-									<option>Dabar</option>
-									<option>Kabai</option>
-									<option>Athelia</option>
-									<option>Humanitas</option>
+								  <select id="selectVideo" data-rel="chosen" name="ubicacion">
+									<option value="---">---</option>
+									<option value="Dabar">Dabar</option>
+									<option value="kabai">Kabai</option>
+									<option value="Athelia">Athelia</option>
+									<option value="Humanitas">Humanitas</option>
 								  </select>
 								</div>
 							</div>
-							 <div class="form-actions">
+							<div class="form-actions">
 								<button type="submit" class="btn btn-primary">Registrar</button>
 							  </div>
 							</fieldset>
@@ -187,17 +184,17 @@
 						  	<div class="control-group">
 								<label class="control-label" for="focusedInput">Aula</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="232">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="232" name="aula2">
 								</div>
 							</div>
-						    <div class="control-group">
+						   <div class="control-group">
 								<label class="control-label" for="selectError">Ubicación</label>
 								<div class="controls">
-								  <select id="select" data-rel="chosen">
-									<option>Dabar</option>
-									<option>Kabai</option>
-									<option>Athelia</option>
-									<option>Humanitas</option>
+								  <select id="selectVideo2" data-rel="chosen" name="ubicacion2">
+									<option value="Dabar">Dabar</option>
+									<option value="kabai">Kabai</option>
+									<option value="Athelia">Athelia</option>
+									<option value="Humanitas">Humanitas</option>
 								  </select>
 								</div>
 							</div>

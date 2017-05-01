@@ -37,6 +37,8 @@
 	<link rel="shortcut icon" href="img/favicon.ico">
 	<!-- end: Favicon -->
 	<style>
+		.ocultar,#supertabla{display: none ;}
+		#Id_salon, #id_salon_modal{display: none !important;}
 		#equipo>ul{
 			display: block;
 		}
@@ -150,6 +152,7 @@
 							<label class="control-label" for="selectsalonConsulta">Aula</label>
 							<div class="controls">
 							 <select id="selectsalonConsulta" data-rel="chosen" name="salon">
+							<option value="---">---</option>
 							<?php
 							 	foreach ($listarsalon as $salon) {
 							 	?><option value="<?php echo $salon['id_salon']; ?>"><?php echo     $salon['aula'].'-'.$salon['ubicacion']; ?></option><?php
@@ -184,7 +187,7 @@
 
 			</div><!--/row-->
 
-			<div class="row-fluid sortable visible" id="consultarE">
+			<div class="row-fluid sortable" id="consultaE">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon white search"></i><span class="break"></span>Consultar Equipos</h2>
@@ -193,9 +196,9 @@
 						<form class="form-horizontal" method="post" action="consultarequipos">
 						  <fieldset>
 							<div class="control-group">
-							  <label class="control-label" for="date02" name="fecha_instalacion">Fecha Instalación </label>
+							  <label class="control-label" for="date02" >Fecha Instalación </label>
 							  <div class="controls">
-								<input type="text" class="input-xlarge datepicker" id="date02" placeholder="02/16/17">
+								<input type="text" class="input-xlarge datepicker" id="date02" placeholder="02/16/17" name="fecha_instalacion">
 								<!--  en los imput poner un atributo name, el cual y le pongo el nombre que quiera, ese atributo me indica el nombre de la funcion que debo utilizar en el ontroaldor para darle funcionailidad, ese name me captura los datos del formulario  -->
 							  </div>
 							</div>
@@ -203,22 +206,16 @@
 							<label class="control-label" for="selectsalonConsulta2">Aula</label>
 							<div class="controls">
 							 <select id="selectsalonConsulta2" data-rel="chosen" name="salon">
+							 	<option value="---">---</option>
 							<?php
 							 	foreach ($listarsalon as $salon) {
-							 	?><option value="<?php echo $salon['id_salon']; ?>"><?php echo     $salon['aula'].'-'.$salon['ubicacion']; ?></option><?php
+							 	?><option value="<?php echo $salon['id_salon']; ?>" "<?php echo $salon['id_salon']; ?>"><?php echo $salon['aula'].'-'.$salon['ubicacion']; ?></option><?php
 							 	}
 							 	?>
 							 </select>
 							</div>
 						</div>  
-							 <div class="control-group">
-								<label class="control-label" for="selectError">Tipo equipo fisico</label>
-								<div class="controls">
-								  <select id="selectVideo3" data-rel="chosen" name="equipo_fisico">
-									<option value="Video bean">Video bean</option>
-								  </select>
-								</div>
-							</div>      
+							  
 							<div class="form-actions">
 							 <input type="submit" class="btn btn-primary" value="Consultar" name="consultarcondicion"></input>
 							  <input type="submit" class="btn btn-primary" value="Consulta General" name="consultartodo"></input>
@@ -231,7 +228,7 @@
 
 			</div><!--/row-->
 
-			<div class="row-fluid sortable visible" id="tablaE">		
+			<div class="row-fluid sortable visible" id="supertabla">		
 				<div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon white tasks"></i><span class="break"></span>Equipos</h2>
@@ -263,8 +260,8 @@
 													
 												</td>
 												<td class="center">
-													<a class="editarEquipo btn btn-info" href="#">
-														<i class="halflings-icon white edit"></i>  
+													<a class="borrarEquipo btn btn-danger" href="#">
+													<i class="halflings-icon white trash"></i> 
 													</a>
 												</td>
 											</tr>
@@ -295,54 +292,28 @@
 			<!-- end: Content -->
 		</div><!--/#content.span10-->
 		</div><!--/fluid-row-->
-		<!--Modificar Equipo-->	
-		<div class="modal hide fade" id="myModalEditarEquipo">
-			<div class="modal-body">
-				<div class="row-fluid sortable">
-				<div class="box span12">
-				<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Modificar Equipo</h2>
-					</div>
-					<div class="box-content">
-						<form class="form-horizontal">
-						  <fieldset>
-							<div class="control-group">
-							  <label class="control-label" for="date01">Fecha Instalación</label>
-							  <div class="controls">
-								<input type="text" class="input-xlarge datepicker" id="date02" value="02/16/17">
-							  </div>
-							</div> 
-							<div class="control-group">
-								<label class="control-label" for="focusedInput">Horas de Uso</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" value="200">
-								</div>
-							</div> 
-							<div class="control-group">
-								<label class="control-label" for="focusedInput">Observaciones</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" value="Nuevo">
-								</div>
-							</div>    
-						  </fieldset>
-						</form> 
-					</div>
-				</div><!--/span-->
-			
-			</div><!--/row-->
-			
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-warning">Editar</a>
-			</div>
-		</div>	
-		<!--Eliminar Equipo-->
+	<!--Eliminar Equipo-->
 		<div class="modal hide fade" id="myModalEliminarEquipo">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">×</button>
 				<h3>Eliminar Equipo</h3>
 			</div>
+		<form method="post" action="eliminar">
+				<div class="modal-body">
+					<input style="display: none;" class="id_modal"  name="id_modal" type="text">
+					<p id="textBorrar"></p>
+				</div>
+				<div class="modal-footer">
+					<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+					<button type="submit" class="btn btn-danger">Aceptar</button>
+				</div>
+			</form>
+		</div>	
+
+
+
+<!--
+
 			<div class="modal-body">
 				<p>Esta Seguro que dese eliminar el equipo videoBeam1?</p>
 			</div>
@@ -371,7 +342,7 @@
 				<li><a href="http://themescloud.org">Bootstrap themes</a></li>
 			</ul>
 		</div>
-	</div>
+	</div>     -->
 	
 	<div class="clearfix"></div>
 	
@@ -441,6 +412,41 @@
 		<script src="<?php echo base_url(); ?>public/js/custom.js"></script>
 	<!-- end: JavaScript-->
 	
+
+
+	<?php  $validacion = $this->session->flashdata('carga_usuario');
+		if($validacion=='true'){
+			?>
+				<script type="text/javascript">
+					$(".texto>a").text("Consultar ");
+					$("#registroE").css("display","none");
+					$("#consultaE").css("display","block");
+					$("#supertabla").css("display","block");
+				</script>
+			<?php
+		}
+		$validacion_formulario = $this->session->flashdata('formulario');
+		if($validacion_formulario=='false'){
+			?>
+				<script type="text/javascript">
+				  $('.modal-title').text("Información");	
+				  $('#modal_body').text("Debe de llenar todos los campos solicitados!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}else if($validacion_formulario=='true'){
+			?>
+				<script type="text/javascript">
+				  $('#modal_header').removeClass('btn-danger');
+				  $('#modal_header').addClass('btn-primary');
+				  $('.modal-title').text("Información");	
+				  $('#modal_body').text("Registro exitoso!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}
+	?>	
+
+
 </body>
 </html>
-
