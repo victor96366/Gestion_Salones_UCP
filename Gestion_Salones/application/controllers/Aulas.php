@@ -20,30 +20,29 @@ class Aulas extends CI_Controller {
     }
 
     public function insertar() {
-       if ( ! $this->input->post('ubicacion') OR ! $this->input->post('aula'))
+       if ( ! $this->input->post('ubicacion') OR ! $this->input->post('aula') OR $this->input->post('ubicacion')=="---")
             {
             redirect('index.php/Aulas/aulas');    
              }
             else{
             $ubicacion= $this->input->post('ubicacion');
             $aula= $this->input->post('aula');
-            $equipo_fisico=1;
+            $equipo_fisico=0;
 
-            $this->Aula->consultarsalon($aula, $ubicacion);
-            $dat2= $this->Aula->consultarsalon($aula, $ubicacion);
-           // print_r ($dat2);
+            $dat2= $this->Aula->existe_salon($ubicacion,$aula);
+            // print_r ($dat2);
                 
           
-                /*if($dat2['aula'] == $aula and $dat2['ubicacion'] == $ubicacion ){
-                 echo "ESE DATO YA EXISTE--";
-                 //redirect('index.php/Aulas/aulas');
+                if($dat2 == TRUE){
+                // echo "ESE DATO YA EXISTE--";
+                redirect('index.php/Aulas/aulas');
                 }
                 else{
-                */    echo "ESE DATO NO EXISTE--";
+                //echo "ESE DATO NO EXISTE--";
                 $dat = array('aula' => $aula,'ubicacion' => $ubicacion, 'equipo_fisico' => $equipo_fisico);
                 $this->Aula->insertar($dat);
-            //  echo "YA INSERTE-";
-            //  }
+              //echo "YA INSERTE-";
+              }
             }
             redirect('index.php/Aulas/aulas');
             
