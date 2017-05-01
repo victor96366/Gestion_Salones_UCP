@@ -17,6 +17,13 @@ class Equipo_fisico extends CI_Model {
 		return $query->result_array();
 	}
 
+		
+
+/*	public function eliminar_rol($dato, $id_rol) {
+ 	return $this->db->update('rol', $dato, compact('id_rol'));
+ }  */
+
+
 	public function consultarid_equipo($nombre){
 		$this->db->select('id_equipos_fisicos');    
 		$this->db->from('equipos_fisicos');
@@ -41,4 +48,29 @@ class Equipo_fisico extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function listar_condicion_fecha($fecha_instalacion){
+		$this->db->select('e.id_equipos_fisicos, e.nombre, e.fecha_instalacion, e.horas_uso, e.observaciones, s.id_salon, s.ubicacion, s.aula');    
+		$this->db->from('equipos_fisicos as e');
+		$this->db->join('salon_has_equiposfisicos as she', ' e.id_equipos_fisicos = she.id_equipo_fisico');
+		$this->db->join('salon as s', 's.id_salon=she.id_salon');
+		$this->db->where(" e.fecha_instalacion", "$fecha_instalacion");
+		$this->db->order_by("s.aula", "asc");
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function listar_condicion_salon($salon){
+		$this->db->select('e.id_equipos_fisicos, e.nombre, e.fecha_instalacion, e.horas_uso, e.observaciones, s.id_salon, s.ubicacion, s.aula');    
+		$this->db->from('equipos_fisicos as e');
+		$this->db->join('salon_has_equiposfisicos as she', ' e.id_equipos_fisicos = she.id_equipo_fisico');
+		$this->db->join('salon as s', 's.id_salon=she.id_salon');
+		$this->db->where(" s.id_salon", "$salon");
+		$this->db->order_by("s.aula", "asc");
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+
+
 }
+
