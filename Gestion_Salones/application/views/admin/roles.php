@@ -88,7 +88,7 @@
 						<a  href="usuarios"><i class="icon-align-justify"></i><span class="hidden-tablet"> Usuarios</span></a>
 						</li>
 						<li>
-						<a  href="reparacion"><i class="icon-wrench"></i><span class="hidden-tablet"> Reparación</span></a>
+						<a  href="reparacion"><i class="icon-wrench"></i><span class="hidden-tablet"> ReparaciÃ³n</span></a>
 						</li>
 						<li id="aulas">
 						<a  href="aulas"><i class="icon-th"></i><span class="hidden-tablet"> Aulas</span></a>
@@ -98,7 +98,7 @@
 						</li>
 						<li><a href="ayuda"><i class="icon-book"></i><span class="hidden-tablet"> Ayuda</span></a></li>
 						<li><a href="contacto"><i class="icon-envelope"></i><span class="hidden-tablet"> Contacto</span></a></li>
-						<li><a href="<?php echo base_url(); ?>"><i class="icon-lock"></i><span class="hidden-tablet"> Cerrar Sesión</span></a></li>	
+						<li><a href="<?php echo base_url(); ?>"><i class="icon-lock"></i><span class="hidden-tablet"> Cerrar SesiÃ³n</span></a></li>	
 					</ul>
 				</div>
 			</div>
@@ -186,7 +186,6 @@
 									        	if($valor['nombre1']!=$nombre && $nombre!="1"){
 										            ?>
 											          	</td>
-											          	
 											            <td class="center">
 															<a class="editarRol btn btn-info" href="#">
 																<i class="halflings-icon white edit"></i>                                            
@@ -194,7 +193,8 @@
 															<a class="borrarRol btn btn-danger" href="#">
 																<i class="halflings-icon white trash"></i> 
 															</a>
-														</td></tr> 
+														</td>
+														</tr> 
 										            <?php
 									        	}
 									            if($valor['nombre1']!=$nombre){
@@ -214,8 +214,7 @@
 													</td>
 									               <td class="permisos"><?php
 									            }
-									            echo  $valor['nombre2'].",";  
-									            ?> <span class="ocultar"><?php echo  $valor['id_permiso']; ?></span><?php 
+									            echo  $valor['nombre2'].","; 
 									       		$nombre=$valor['nombre1'];
 									        }
 									    ?>
@@ -251,6 +250,7 @@
 		</div><!--/fluid-row-->
 		<!--Modificar Roles-->	
 		<div class="modal hide fade" id="myModalEditarRol">
+			<form class="form-horizontal" method="post" action="editarPermisos">
 			<div class="modal-body">
 				<div class="row-fluid sortable">
 				<div class="box span12">
@@ -258,26 +258,43 @@
 						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Modificar Rol</h2>
 					</div>
 					<div class="box-content">
-						<form class="form-horizontal">
 						  <fieldset>
 							  <div class="control-group">
 									<label class="control-label" for="focusedInput">Rol</label>
-									<label class="id_rol id_rol_modal"></label>
+									<input style="display: none;" class="id_rol id_rol_modal" name="id_rol_modal" type="text" >
 									<div class="controls">
 									  <input class="input-xlarge disabled" id="rol_modal" type="text" placeholder="Secretaria" disabled="">
 									</div>
 								</div>
-							   <div class="control-group">
-									<label class="control-label" for="permisos">Permisos</label>
+								<div class="control-group">
+									<label class="control-label" for="focusedInput">Permisos Asignados</label>
 									<div class="controls">
-										<label class="checkbox-inline"><input id="checkbox1" type="checkbox" value="1" >Insertar</label>
-										<label class="checkbox-inline"><input type="checkbox" value="2">Consultar</label>
-										<label class="checkbox-inline"><input type="checkbox" value="3">Modificar</label>
-										<label class="checkbox-inline"><input type="checkbox" value="4">Eliminar</label>
+									  <input class="input-xlarge disabled" id="permisos_modal" type="text" placeholder="Insertar,Consultar,Modificar,Eliminar" disabled="">
 									</div>
+								</div>
+							   <div class="control-group">
+								<label class="control-label" for="selectPagregar">Agregar Permisos</label>
+								<div class="controls">
+								  <select id="selectPagregar"  name="agregar_permisos[]" multiple data-rel="chosen">
+									<option value="1">Insertar</option>
+									<option value="2" >Consultar</option>
+									<option value="3">Modificar</option>
+									<option value="4">Eliminar</option>
+								  </select>
+								</div>
+							  </div>
+							  <div class="control-group">
+								<label class="control-label" for="selectEagregar">Eliminar Permisos</label>
+								<div class="controls">
+								  <select id="selectEagregar" name="eliminar_permisos[]" multiple data-rel="chosen">
+									<option value="1">Insertar</option>
+									<option value="2" >Consultar</option>
+									<option value="3">Modificar</option>
+									<option value="4">Eliminar</option>
+								  </select>
+								</div>
 							  </div>
 							</fieldset>
-						</form> 
 					</div>
 				</div><!--/span-->
 			
@@ -286,13 +303,14 @@
 			</div>
 			<div class="modal-footer">
 				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-warning">Editar</a>
+				<button type="submit" class="btn btn-warning">Editar</button>
 			</div>
+			</form>
 		</div>
 		<!--Eliminar Aula-->
 		<div class="modal hide fade" id="myModalEliminarRol">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
+				<button type="button" class="close" data-dismiss="modal">Ã</button>
 				<h3>Eliminar Rol</h3>
 			</div>
 			<form method="post" action="eliminar">
@@ -310,7 +328,7 @@
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div id="modal_header" class="modal-header btn-danger">
-		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã</button>
 		        <h4 class="modal-title">titulo</h4>
 		      </div>
 		      <div class="modal-body" >
@@ -400,7 +418,7 @@
 		if($validacion_formulario=='false'){
 			?>
 				<script type="text/javascript">
-				  $('.modal-title').text("Información");	
+				  $('.modal-title').text("InformaciÃ³n");	
 				  $('#modal_body').text("Debe de llenar todos los campos solicitados!");	
 				  $('#myModal').modal('show');
 				</script>
@@ -410,8 +428,18 @@
 				<script type="text/javascript">
 				  $('#modal_header').removeClass('btn-danger');
 				  $('#modal_header').addClass('btn-primary');
-				  $('.modal-title').text("Información");	
+				  $('.modal-title').text("InformaciÃ³n");	
 				  $('#modal_body').text("Registro exitoso!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}
+		$validacion_formulario = $this->session->flashdata('formulario_existe');
+		if($validacion_formulario=='false'){
+			?>
+				<script type="text/javascript">
+				  $('.modal-title').text("InformaciÃ³n");	
+				  $('#modal_body').text("El Rol que desea insertar ya esta registrado!");	
 				  $('#myModal').modal('show');
 				</script>
 			<?php
