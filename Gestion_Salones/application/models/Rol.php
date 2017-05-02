@@ -52,5 +52,16 @@ class Rol extends CI_Model {
 		$this->db->where(compact('id_permiso'));
 		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
 	}
+	public function permisos($cedula){
+		$this->db->select('permisos.nombre');    
+		$this->db->from('persona');
+		$this->db->join('rol', 'persona.id_rol= rol.id_rol');
+		$this->db->join('rol_has_permisos', 'rol.id_rol= rol_has_permisos.id_rol');
+		$this->db->join('permisos', 'permisos.id_permiso= rol_has_permisos.id_permiso');
+		$this->db->where(compact('persona.cedula'));
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 }	
+
 
