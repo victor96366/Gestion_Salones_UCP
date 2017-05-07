@@ -38,7 +38,7 @@
 	<!-- end: Favicon -->
 	<style>
 		.ocultar,#supertabla{display: none ;}
-		#Id_salon, #id_salon_modal{display: none !important;}
+		#id_equipo_fisico, #id_equipo_fisico_modal{display: none !important;}
 		#equipo>ul{
 			display: block;
 		}
@@ -181,7 +181,7 @@
 							</div>
 						  </fieldset>
 						</form>   
-
+						
 					</div>
 				</div><!--/span-->
 
@@ -292,6 +292,65 @@
 			<!-- end: Content -->
 		</div><!--/#content.span10-->
 		</div><!--/fluid-row-->
+	
+	<!--Modificar equipo-->
+		<div class="modal hide fade" id="myModalEditarEquipo">
+			<form class="form-horizontal" method="post" action="editar_equipo">
+			<div class="modal-body">
+				<div class="row-fluid sortable">
+				<div class="box span12">
+				<div class="box-header" data-original-title>
+						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Modificar Equipo</h2>
+					</div>
+					<div class="box-content">
+
+						  <fieldset>
+						 	  <div class="control-group">
+								<label class="control-label" for="focusedInput">Nombre</label>
+								<input style="display: none;" class="id_equipo_fisico id_equipo_fisico_modal" name="id_equipo_fisico_modal" type="text" >
+								<div class="controls">
+								  	<input class="input-xlarge focused" id="nombre" type="text" name="nombre">
+								</div>
+							  </div>
+							  <div class="control-group">
+								<label class="control-label" for="focusedInput">Aula</label>
+								<div class="controls">
+								  <input class="input-xlarge focused" id="aula" type="text" name="aula">
+								</div>
+							  </div>
+							  <div class="control-group">
+								<label class="control-label" for="focusedInput">Fecha instalaciom</label>
+								<div class="controls">
+								  <input class="input-xlarge focused" id="fecha_instalacion" type="text" name="fecha_instalacion">
+								</div>
+							  </div>
+							  <div class="control-group">
+							  	<label class="control-label" for="focusedInput">Horas de uso</label>
+							  	<div class="controls">
+									<input class="input-xlarge focused" id="horas_uso" type="text" name="horas_uso">
+								</div>
+							</div>
+							<div class="control-group">
+							  	<label class="control-label" for="focusedInput">Observaciones</label>
+							  	<div class="controls">
+									<input class="input-xlarge focused" id="observaciones" type="text" name="observaciones">
+								</div>
+							</div> 
+							</fieldset>
+						
+					</div>
+				</div><!--/span-->
+			
+			</div><!--/row-->
+			
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+				<button type="submit" class="btn btn-warning">Editar</button>
+			</div>
+			</form> 
+		</div>	
+
 	<!--Eliminar Equipo-->
 		<div class="modal hide fade" id="myModalEliminarEquipo">
 			<div class="modal-header">
@@ -300,7 +359,8 @@
 			</div>
 		<form method="post" action="eliminar">
 				<div class="modal-body">
-					<input style="display: none;" class="id_modal"  name="id_modal" type="text">
+					<input style="display: none;" id="id_equipo_fisico_modal"  name="id_equipo_fisico_modal" type="text">
+				<!--	<input style="display: none;" class="id_salon_modal"  name="id_salon_modal" type="text">  -->
 					<p id="textBorrar"></p>
 				</div>
 				<div class="modal-footer">
@@ -310,31 +370,23 @@
 			</form>
 		</div>	
 
-
-
-<!--
-
-			<div class="modal-body">
-				<p>Esta Seguro que dese eliminar el equipo videoBeam1?</p>
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-danger">Aceptar</a>
-			</div>
-		</div>
-	<div class="modal hide fade" id="myModal">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Settings</h3>
-		</div>
-		<div class="modal-body">
-			<p>Here settings can be configured...</p>
-		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
-		</div>
-	</div>
+<!-- modal para borar los datos-->
+	<div class="modal fade" id="myModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div id="modal_header" class="modal-header btn-danger">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	        <h4 class="modal-title">titulo</h4>
+	      </div>
+	      <div class="modal-body" >
+	        <p id="modal_body">mensaje</p>
+	      </div>
+	      <div class="modal-footer">
+	        <a href="#" class="btn" data-dismiss="modal">Aceptar</a>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	<div class="common-modal modal fade" id="common-Modal1" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-content">
 			<ul class="list-inline item-details">
@@ -342,18 +394,16 @@
 				<li><a href="http://themescloud.org">Bootstrap themes</a></li>
 			</ul>
 		</div>
-	</div>     -->
-	
+	</div>
 	<div class="clearfix"></div>
 	
 	<footer>
 
 		<p>
-			<span style="text-align:left;float:left">&copy; 2017</span>	
+			<span style="text-align:left;float:left">&copy; 2017</span>
 		</p>
 
 	</footer>
-	
 	<!-- start: JavaScript-->
 
 		<script src="<?php echo base_url(); ?>public/js/jquery-1.9.1.min.js"></script>
@@ -426,6 +476,9 @@
 			<?php
 		}
 		$validacion_formulario = $this->session->flashdata('formulario');
+		?>
+
+<?php
 		if($validacion_formulario=='false'){
 			?>
 				<script type="text/javascript">

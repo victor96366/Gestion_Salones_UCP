@@ -37,7 +37,7 @@
 	<link rel="shortcut icon" href="img/favicon.ico">
 	<!-- end: Favicon -->
 	<style>
-		.ocultar,#supertabla{display: none ;}
+		.ocultar,#tabla{display: none ;}
 		#id_reparacion, #id_reparacion_modal{display: none !important;}
 		#reparacion>ul{
 			display: block;
@@ -241,7 +241,7 @@
 
 			
 
-			<div class="row-fluid sortable visible" id="supertabla">	
+			<div class="row-fluid sortable visible" id="tabla">	
 				<div class="box span12">
 					<div class="box-header">
 						<h2><i class="halflings-icon white align-justify"></i><span class="break"></span>Reparación</h2>
@@ -253,11 +253,11 @@
 
 									  <th>Nombre equipo</th>
 									  <th>Ubicacion</th>
-								<!--	  <th>Responsable</th>  -->
+									  <th>Responsable</th>  
 									  <th>Empresa</th>
 									  <th>Fecha Reparación</th>
 									  <th>Reparacion</th>
-								<!--	  <th>Vida Util (meses)</th>  -->
+									  <th>Vida Util (meses)</th>  
 									  <th>Opciones</th>                                            
 								  </tr>
 							  </thead>   
@@ -271,17 +271,17 @@
 							  					<td class="ocultar idsalon"><?php echo $reparacion['id_salon']; ?></td>
 							  					<td class="ocultar idreparacion"><?php echo $reparacion['id_reparacion']; ?></td>
 							  					<td class="center nombre"><?php echo $reparacion['nombre']; ?></td>
-												<td class="center aula"><?php echo  $reparacion['aula'].'-'.$equipo['ubicacion']; ?></td>
-												<td class="ocultar responsable"><?php echo $reparacion['responsable_reparacion']; ?></td>
+												<td class="center aula"><?php echo  $reparacion['aula'].'-'.$reparacion['ubicacion']; ?></td>
+												<td class="responsable"><?php echo $reparacion['responsable_reparacion']; ?></td>
 												<td class="center empresa"><?php echo $reparacion['empresa_reparacion']; ?></td>
 												<td class="center fecha_reparacion"><?php echo $reparacion['fecha_reparacion']; ?></td>
 												<td class="center reparacion"><?php echo $reparacion['reparacion_realizada']; ?></td>
-												<td class="ocultar vida_util"><?php echo $reparacion['vida_util_reparacion']; ?></td>
+												<td class="vida_util"><?php echo $reparacion['vida_util_reparacion']; ?></td>
 												
 													
 												</td>
 												<td class="center">
-													<a class="editarEquipo btn btn-info" href="#">
+													<a class="editarReparacion btn btn-info" href="#">
 														<i class="halflings-icon white edit"></i>  
 													</a>
 												</td>
@@ -313,65 +313,10 @@
 			<!-- end: Content -->
 		</div><!--/#content.span10-->
 		</div><!--/fluid-row-->
-		<div class="modal hide fade" id="myModalEditarRol">
-			<div class="modal-body">
-				<div class="row-fluid sortable">
-				<div class="box span12">
-				<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Modificar Rol</h2>
-					</div>
-					<div class="box-content">
-
-						  <fieldset>
-						 	 <input  id="cedula" name="cedula" type="text" ></input>
-							  <div class="control-group">
-								<label class="control-label" for="focusedInput">Nombre</label>
-								<div class="controls">
-								  	<input class="input-xlarge disabled" name="nombre" id="nombre_usuario" type="text" placeholder="Juan Blandon" disabled="">
-								</div>
-							  </div>
-							  <div class="control-group">
-								<label class="control-label" for="focusedInput">Correo</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="correo" name="correo" type="text" value="j@gmail.com">
-								</div>
-							  </div>
-							  <div class="control-group">
-								<label class="control-label" for="focusedInput">Telefono</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" name="telefono" id="telefono" type="text" value="3145672345">
-								</div>
-							  </div>
-							  <div class="control-group">
-							  	<label class="control-label" for="focusedInput">Contraseña</label>
-							  	<div class="controls">
-									<input class="input-xlarge focused" name="password" id="password_modal" type="password" placeholder="Conraseña"/>
-								</div>
-							</div>
-						  </fieldset>
-						
-					</div>
-				</div><!--/span-->
-			
-			</div><!--/row-->
-			
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-warning">Editar</a>
-			</div>
-		</div>
-
-
-
-
-
-
-
-
-
+		
 		<!--Modificar Reparacion-->	
-<!--		<div class="modal hide fade" id="myModalEditarReparacion">
+		<div class="modal hide fade" id="myModalEditarReparacion">
+		  <form class="form-horizontal" method="post" action="editar_reparacion">
 			<div class="modal-body">
 				<div class="row-fluid sortable">
 				<div class="box span12">
@@ -379,28 +324,27 @@
 						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Modificar Reparacion</h2>
 					</div>
 					<div class="box-content">
-						<form class="form-horizontal" method="post" action="editar_reparacion">
-						  <fieldset>
+						<fieldset>
+						  	<input  id="id_reparacion_modal" type="text" name="id_reparacion"></input>
 							  <div class="control-group">
 								<label class="control-label" for="focusedInput">Nombre Responsable</label>
 								<div class="controls">
-								  <input class="input-xlarge disabled" id="disabledInput" type="text" placeholder="Julian Cardona" disabled="" name="nombre_responsable">
+								  <input class="input-xlarge" id="nombre_responsable_modal" type="text"  name="nombre_responsable">
 								</div>
 							  </div>
 							  <div class="control-group">
 								<label class="control-label" for="focusedInput">Empresa Responsable </label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" value="UCP" name="nombre_empresa">
-								</div>
+								  <input class="input-xlarge focused" id="empresa_modal" type="text" name="nombre_empresa">
+							    </div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="focusedInput">Vida Util</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" value="1" name="vida_util">
+								  <input class="input-xlarge focused" id="vida_util_modal" type="text" name="vida_util">
 								</div>
 							</div>  
-							</fieldset>
-						</form> 
+						  </fieldset>
 					</div>
 				</div><!--/span-->
 			
@@ -409,9 +353,12 @@
 			</div>
 			<div class="modal-footer">
 				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-warning">Editar</a>
+				<button type="submit" class="btn btn-warning">Editar</button>
 			</div>
-		</div>	-->
+			</form>
+		</div>
+
+
 	<div class="clearfix"></div>
 	
 	<footer>
@@ -489,7 +436,7 @@
 					$(".texto>a").text("Consultar ");
 					$("#registroR").css("display","none");
 					$("#consultaR").css("display","block");
-					$("#supertabla").css("display","block");
+					$("#tabla").css("display","block");
 				</script>
 			<?php
 		}

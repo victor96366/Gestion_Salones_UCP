@@ -37,6 +37,8 @@
 	<link rel="shortcut icon" href="<?php echo base_url(); ?>public/img/favicon.ico">
 	<!-- end: Favicon -->
 	<style>
+		.ocultar,#tablaA{display: none ;}
+		#Id_salon, #id_salon_modal{display: none !important;}
 		#aulas>ul{
 			display: block;
 		}
@@ -179,7 +181,7 @@
 						<h2><i class="halflings-icon white search"></i><span class="break"></span>Consultar Aulas</h2>
 					</div>
 					<div class="box-content">
-						<form class="form-horizontal">
+						<form class="form-horizontal" method="post" action="consultar_reparacion">
 						  <fieldset>
 						  	<div class="control-group">
 								<label class="control-label" for="focusedInput">Aula</label>
@@ -191,6 +193,7 @@
 								<label class="control-label" for="selectError">Ubicación</label>
 								<div class="controls">
 								  <select id="selectVideo2" data-rel="chosen" name="ubicacion2">
+									<option value="---">---</option>
 									<option value="Dabar">Dabar</option>
 									<option value="kabai">Kabai</option>
 									<option value="Athelia">Athelia</option>
@@ -199,8 +202,8 @@
 								</div>
 							</div>
 							<div class="form-actions">
-							  <button type="submit" class="btn btn-primary">Consultar</button>
-							  <button type="submit" class="btn btn-primary">Consulta General</button>
+							  <input type="submit" class="btn btn-primary" value="Consultar" name="consultarcondicion"></input>
+							  <input type="submit" class="btn btn-primary" value="Consulta General" name="consultartodo"></input>
 							</div>
 						  </fieldset>
 						</form>   
@@ -222,70 +225,56 @@
 									  <th>Aula</th>
 									  <th>Ubicacion</th>
 									  <th>Disponibilidad</th>
-									  <th>Opciones</th>                                            
+									  <th>Tiene Equipo fisico</th>
 								  </tr>
 							  </thead>   
 							  <tbody>
-								<tr>
-									<td>201K</td>
-									<td class="center">Kabai</td>
-									<td class="center">
-										<span class="label label-success">Disponible</span>
-									</td>
-									<td class="center">
-										<a class="modificarAula btn btn-info" href="#">
-											<i class="halflings-icon white edit"></i>                                            
-										</a>
-										<a class="borrarAula btn btn-danger" href="#">
-											<i class="halflings-icon white trash"></i> 
-										</a>
-									</td>                                  
-								</tr>
-								<tr>
-									<td>201K</td>
-									<td class="center">Kabai</td>
-									<td class="center">
-										<span class="label label-success">Disponible</span>
-									</td>
-									<td class="center">
-										<a class="modificarAula btn btn-info" href="#">
-											<i class="halflings-icon white edit"></i>                                            
-										</a>
-										<a class="borrarAula btn btn-danger" href="#">
-											<i class="halflings-icon white trash"></i> 
-										</a>
-									</td>                                 
-								</tr>
-								<tr>
-									<td>201K</td>
-									<td class="center">Kabai</td>
-									<td class="center">
-										<span class="label label-success">Disponible</span>
-									</td>
-									<td class="center">
-										<a class="modificarAula btn btn-info" href="#">
-											<i class="halflings-icon white edit"></i>                                            
-										</a>
-										<a class="borrarAula btn btn-danger" href="#">
-											<i class="halflings-icon white trash"></i> 
-										</a>
-									</td>                              
-								</tr>
-								<tr>
-									<td>201K</td>
-									<td class="center">Kabai</td>
-									<td class="center">
-										<span class="label label-success">Disponible</span>
-									</td>
-									<td class="center">
-										<a class="modificarAula btn btn-info" href="#">
-											<i class="halflings-icon white edit"></i>                                            
-										</a>
-										<a class="borrarAula btn btn-danger" href="#">
-											<i class="halflings-icon white trash"></i> 
-										</a>
-									</td>                                  
-								</tr>
+								
+							  	<?php
+							  		foreach ($listaraula as $aula) {
+							  			?>
+							  				<tr>
+							  					<td class="ocultar id_salon"><?php echo $aula['id_salon']; ?></td>
+							  					<td class="center aula"><?php echo $aula['aula']; ?></td>
+												<td class="center ubicacion"><?php echo $aula['ubicacion']; ?></td>
+												<td class="center disponibilidad">
+
+												<?php 
+														if($aula['disponibilidad']=='1'){
+															?>
+																<span class="label label-success">Si</span>
+															<?php
+														}else{
+															?>
+																<span class="label label-important">No</span>
+															<?php
+														} 
+													?>
+													
+												</td>
+
+												<td class="center equipo _fisico">
+
+												<?php 
+														if($aula['equipo_fisico']=='1'){
+															?>
+																<span class="label label-success">Si</span>
+															<?php
+														}else{
+															?>
+																<span class="label label-important">No</span>
+															<?php
+														} 
+													?>
+													
+												</td>
+
+											</tr>  
+
+							  			<?php
+							  		}
+							  ?>
+
 							  </tbody>
 						 </table>  
 						 <div class="pagination pagination-centered">
