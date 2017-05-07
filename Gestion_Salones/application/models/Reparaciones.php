@@ -27,7 +27,7 @@ class Reparaciones extends CI_Model {
 	}
 
 	public function consultar_id_reparacion($responsable_reparacion,$fecha_reparacion,$empresa_reparacion,$vida_util_reparacion,$reparacion_realizada){
-		$this->db->select('r.id_reparacion');    
+		$this->db->select_max('r.id_reparacion');    
 		$this->db->from('reparacion as r');
 		$this->db->where("responsable_reparacion","$responsable_reparacion");
 		$this->db->where("fecha_reparacion", " $fecha_reparacion");
@@ -63,23 +63,33 @@ class Reparaciones extends CI_Model {
 		$this->db->join('equipos_fisicos as e', 'e.id_equipos_fisicos =rhe.id_equipos_fisicos');
 		$this->db->join('salon_has_equiposfisicos as she', ' e.id_equipos_fisicos = she.id_equipo_fisico');
 		$this->db->join('salon as s', 's.id_salon=she.id_salon');
-		$this->db->where(" r.fecha_reparacion", "$fecha_reparacion");
+		$this->db->where("r.fecha_reparacion", "$fecha_reparacion");
 		$this->db->order_by("s.aula", "asc");
 		$query = $this->db->get();
 		return $query->result_array();
 	}
 
-
-	public function listar_condicion_salon($salon){
+	public function listar_condicion_salon($id_salon){
 		$this->db->select('e.id_equipos_fisicos, e.nombre, s.id_salon, s.ubicacion, s.aula, r.id_reparacion, r.responsable_reparacion, r.empresa_reparacion, r.fecha_reparacion, r.reparacion_realizada, r.vida_util_reparacion');    
 		$this->db->from('reparacion as r');
 		$this->db->join('equiposfisicos_has_reparacion as rhe', 'r.id_reparacion=rhe.id_reparacion');
 		$this->db->join('equipos_fisicos as e', 'e.id_equipos_fisicos =rhe.id_equipos_fisicos');
 		$this->db->join('salon_has_equiposfisicos as she', ' e.id_equipos_fisicos = she.id_equipo_fisico');
 		$this->db->join('salon as s', 's.id_salon=she.id_salon');
-		$this->db->where(" s.id_salon", "$salon");
+		$this->db->where(compact('s.id_salon'));
 		$this->db->order_by("s.aula", "asc");
 		$query = $this->db->get();
 		return $query->result_array();
 	}
+
+
+	public function modificar_reparacion($id_reparacion,$nombre_responsable,$empresa_responsable,$vida_util){
+ 		$this->db->set('responsable_reparacion', $nombre_responsable); 
+ 		$this->db->set('empresa_reparacion', $empresa_responsable);
+ 		$this->db->set('vida_util_reparacion', $vida_util);  
+		$this->db->where('id_reparacion', $id_reparacion); 
+		$this->db->update('reparacion');
+ 	}
+
+
 }

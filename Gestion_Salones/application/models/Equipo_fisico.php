@@ -17,17 +17,16 @@ class Equipo_fisico extends CI_Model {
 		return $query->result_array();
 	}
 
-		
 
-/*	public function eliminar_rol($dato, $id_rol) {
- 	return $this->db->update('rol', $dato, compact('id_rol'));
- }  */
-
-
-	public function consultarid_equipo($nombre){
-		$this->db->select('id_equipos_fisicos');    
+	public function existe_nombre($nombre) {
 		$this->db->from('equipos_fisicos');
-		$this->db->where("nombre", "$nombre");
+		$this->db->where(compact('nombre'));
+		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
+	}
+
+	public function consultarid_equipo(){
+		$this->db->select_max('id_equipos_fisicos');    
+		$this->db->from('equipos_fisicos');
 		$query = $this->db->get();
 		$result=$query->row_array();
  		return $result['id_equipos_fisicos'];
@@ -71,6 +70,20 @@ class Equipo_fisico extends CI_Model {
 	}
 
 
+	public function eliminar_equipo ($id_equipo_fisico){
+		$this->db->where('id_equipos_fisicos', $id_equipo_fisico);
+		$this->db->delete('equipos_fisicos');
+		
+	//	$query = $this->db->get();
+	//	return $query->result_array();
+	}
+
+	public function eliminar_equipo_has_salon ($id_equipo_fisico){
+		$this->db->where('id_equipo_fisico', $id_equipo_fisico);
+		$this->db->delete('salon_has_equiposfisicos');
+		//	$query = $this->db->get();
+	//	return $query->result_array();
+	}
 
 }
 
