@@ -14,7 +14,8 @@ class Reparacion extends CI_Controller {
     
     public function reparacion() {
         $data['listarsalon']= $this->Reparaciones->consultarid_salon();
-        $this->session->set_flashdata('carga', 'true');
+        $data['listarreparacion']= $this->Reparaciones->listartodo();
+        $this->session->set_flashdata('carga_usuario', 'true');
         $this->load->view('admin/reparacion',$data);
     }
 
@@ -63,24 +64,54 @@ class Reparacion extends CI_Controller {
         }
       
         else if($this->input->post('consultarcondicion')){
+            
             $fecha_reparacion=$this->input->post('fecha_reparacion');
             $salon=$this->input->post('salon');
-            
+           // echo $salon;
+           // echo $fecha_reparacion;
+
+
             if($salon != "---" ){
             $data['listarreparacion']= $this->Reparaciones->listar_condicion_salon($salon);
             $this->session->set_flashdata('carga_usuario', 'true');
-           $this->load->view('admin/reparacion', $data); 
+            //$this->load->view('admin/reparacion', $data); 
+            print_r($data);
             } 
 
             else if($salon == "---"){
             $data['listarreparacion']= $this->Reparaciones->listar_condicion_fecha($fecha_reparacion);
             $this->session->set_flashdata('carga_usuario', 'true');
-            $this->load->view('admin/reparacion', $data); 
-             
+            //$this->load->view('admin/reparacion', $data); 
+            print_r($data); 
             }
              
         } 
     } 
+
+
+     public function editar_reparacion(){
+        if ( !$this->input->post('nombre_responsable') AND !$this->input->post('nombre_empresa') AND !$this->input->post('vida_util')){
+            $this->session->set_flashdata('formulario', 'false');
+        redirect('index.php/Reparacion/reparacion');  
+        }
+   
+        else{
+            $id_reparacion=$this->input->post('id_reparacion');
+            $nombre_responsable=$this->input->post('nombre_responsable');
+            $empresa_responsable=$this->input->post('nombre_empresa');
+            $vida_util=$this->input->post('vida_util');
+        /*    echo "$id_reparacion";
+            echo "$nombre_responsable";
+            echo "$empresa_responsable";
+            echo "$vida_util";  */
+            $this->Reparaciones->modificar_reparacion($id_reparacion,$nombre_responsable,$empresa_responsable,$vida_util);
+
+
+            $this->session->set_flashdata('formulario','true');
+            $this->session->set_flashdata('carga_usuario', 'true');
+            redirect('index.php/Reparacion/reparacion'); 
+        }
+    }
 
     // Cargar Menu
     public function prestamo() {

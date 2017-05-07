@@ -12,7 +12,9 @@ class Aulas extends CI_Controller {
 		$this->load->view('index');
     }
     public function aulas() {
-		$this->load->view('admin/aulas');
+        $data['listaraula']= $this->Aula->listartodo();
+        $this->session->set_flashdata('carga_usuario', 'true');
+        $this->load->view('admin/aulas');
     }
     // Cargar Menu
     public function prestamo() {
@@ -47,6 +49,44 @@ class Aulas extends CI_Controller {
             redirect('index.php/Aulas/aulas');
             
     }
+
+
+     public function consultar_reparacion(){
+
+        if($this->input->post('consultartodo')){
+            
+            $data['listaraula']= $this->Aula->listartodo();
+
+            //$this->session->set_flashdata('carga_usuario', 'true');
+            $this->load->view('admin/aulas', $data); 
+        }
+      
+        else if($this->input->post('consultarcondicion')){
+            $aula=$this->input->post('aula2');
+            $ubicacion=$this->input->post('ubicacion2');
+            
+            
+            if($aula != "" AND $ubicacion != "---" ){
+            $data['listaraula']= $this->Aula->listar_condicion_aula_ubicacion($aula,$ubicacion);
+            //$this->session->set_flashdata('carga_usuario', 'true');
+            $this->load->view('admin/aulas', $data);
+             
+            }
+            if($ubicacion != "---" AND  $aula == ""){
+            $data['listaraula']= $this->Aula->listar_condicion_ubicacion($ubicacion);
+            //$this->session->set_flashdata('carga_usuario', 'true');
+            $this->load->view('admin/aulas', $data);
+            } 
+
+            if($ubicacion == "---"){
+            $data['listaraula']= $this->Aula->listar_condicion_aula($aula);
+            //$this->session->set_flashdata('carga_usuario', 'true');
+            $this->load->view('admin/aulas', $data);
+             
+            }            
+        } 
+    }
+
 
     public function equiposFisicos() {
     	redirect('index.php/Equipos/equiposFisicos');

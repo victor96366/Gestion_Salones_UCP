@@ -26,29 +26,36 @@ class Equipos extends CI_Controller {
     }
     
     public function insertar() {
-       if ( ! $this->input->post('nombre') OR $this->input->post('nombre') == "---")
+       if ( ! $this->input->post('nombre') OR $this->input->post('salon') == "---")
             {
-            $this->session->set_flashdata('formulario','false');                
+           // $this->session->set_flashdata('formulario2','false');                
             redirect('index.php/Equipos/equiposFisicos');
              }
-        
-        else{
-           
-            $salon= $this->input->post('salon');
+            
             $nombre=$this->input->post('nombre');
+            $en=$this->Equipo_fisico->existe_nombre($nombre);
+
+        if($en == TRUE){
+          //  $this->session->set_flashdata('formulario2','false');                
+            redirect('index.php/Equipos/equiposFisicos');
+            }
+
+        if($en == FALSE){
+
+            $salon= $this->input->post('salon');
             $observacion=$this->input->post('observacion');
             $fecha_instalacion=$this->input->post('fecha_instalacion');
-            
+           
             $dat = array('nombre' => $nombre,'fecha_instalacion' => $fecha_instalacion, 'observaciones' => $observacion);
-            $this->Equipo_fisico->insertar($dat); 
             $si=1;
 
-            $dato = array('equipo_fisico' => $si);
+            $this->Equipo_fisico->insertar($dat); 
+            
             // para insertar un 1 es decir SI en el campo de equipo fisico del salon seleccionado 
-            $this->Aula->tiene_equipo_fisico($dato, $salon); 
+            $this->Aula->tiene_equipo_fisico($si, $salon); 
                
             //con esto me traigo el id del equipo fisico que se acabo de insertar           
-            $dat3= $this->Equipo_fisico->consultarid_equipo($nombre);
+            $dat3= $this->Equipo_fisico->consultarid_equipo();
 
             $dat4 = array('id_equipo_fisico' => $dat3,'id_salon' => $salon);
             $this->Equipo_fisico->insertarsalon_has_equipo($dat4);            
@@ -89,13 +96,19 @@ class Equipos extends CI_Controller {
     }
 
     public function eliminar(){
-        $id_rol = $this->input->post('id_modal');
-       // $dato = array('estado' => '0');
-       // $this->Equipo_fisico->eliminar($dato,$id_rol);
-        redirect('index.php/Equipos/equiposFisicos');
-        //echo("ya borre");
+        $id_equipo_fisico = $this->input->post('id_equipo_fisico_modal');
+        echo "METODO ELIMINAR";
+        echo "$id_equipo_fisico";
+        $this->Equipo_fisico->eliminar_equipo($id_equipo_fisico);
+        $this->Equipo_fisico->eliminar_equipo_has_salon($id_equipo_fisico);
+
+        $this->session->set_flashdata('formulario', 'true');
+         redirect('index.php/Equipos/equiposFisicos');
+
+
     }
 
+    
 
     public function reparacion() {
         redirect('index.php/Reparacion/reparacion');
