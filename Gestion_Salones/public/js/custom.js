@@ -22,11 +22,24 @@ $('.editarEquipo').click(function(e){
 	e.preventDefault();
 	$('#myModalEditarEquipo').modal('show');
 });
-// Modal eliminar Equipo
+
+
+// MODAL ELIMINAR EQUIPO
 $('.borrarEquipo').click(function(e){
 	e.preventDefault();
+    // Obtenemos todos los valores contenidos en los <td> de la fila
+    var id_equipo=$(this).parents("tr").find(".idequipo").html();
+  //  var=id_salon=$(this).parents("tr").find(".idsalon").html();
+    var aula=$(this).parents("tr").find(".aula").html();
+   // alert('El id equipo es '+id_equipo);
+
+    $('#textBorrar').text("Está seguro que desea eliminar el equipo fisico ubicado  "+aula+"? ");
+    $('#id_equipo_fisico_modal').val(id_equipo);
+  //  $('.id_salon_modal').val(id_salon);
 	$('#myModalEliminarEquipo').modal('show');
 });
+
+
 // Modal editar usuario
 $(".editarUsuario").click(function(e){
 	e.preventDefault();
@@ -69,15 +82,29 @@ $(".borrarUsuario").click(function(e){
     $('#estado_modald').val(estado);
 	$('#myModalEliminarUsuario').modal('show');	
 });
-// Modal modificar reparacion
+
+
+// MODAL MODIFICAR REPARACION
 $('.editarReparacion').click(function(e){
 	e.preventDefault();
+	var id_reparacion=$(this).parents("tr").find(".idreparacion").html();
+	var empresa=$(this).parents("tr").find(".empresa").html();
+    var nombre_responsable=$(this).parents("tr").find(".responsable").html();
+    var vida_util=$(this).parents("tr").find(".vida_util").html();
+    //alert('El id equipo es '+id_reparacion);
+    $('#id_reparacion_modal').val(id_reparacion);
+    $('#empresa_modal').val(empresa);
+    $('#nombre_responsable_modal').val(nombre_responsable);
+    $('#vida_util_modal').val(vida_util);
 	$('#myModalEditarReparacion').modal('show');
 });
-// Modal eliminar reparacion
+
+
+// MODAL ELIMINAR REPARACION
 $('.borrarReparacion').click(function(e){
 	e.preventDefault();
-	$('#myModalEliminarReparacion').modal('show');
+	
+    $('#myModalEliminarReparacion').modal('show');
 });
 // Modal modificar aulas
 $('.modificarAula').click(function(e){
@@ -89,6 +116,7 @@ $('.borrarAula').click(function(e){
 	e.preventDefault();
 	$('#myModalEliminarAula').modal('show');
 });
+
 // Modal modificar rol
 $(".editarRol").click(function(e){
 	e.preventDefault();
@@ -104,6 +132,7 @@ $(".editarRol").click(function(e){
     $('#permisos_modal').val(permisos);
 	$('#myModalEditarRol').modal('show');	
 });
+
 // Modal eliminar rol
 $(".borrarRol").click(function(e){
 	e.preventDefault();
