@@ -5,9 +5,6 @@ class Prestamos extends CI_Model {
 	public function __construct() {
         parent::__construct();
     }
-	public function insertar_has($datos) {
-		return $this->db->insert('salon_has_prestamo', $datos);
-	}
     public function insertar($datos) {
 		return $this->db->insert('prestamo', $datos);
 	}
@@ -38,7 +35,7 @@ class Prestamos extends CI_Model {
 		return $query->result_array();
 	}
 	public function consultar_condicion($cedula,$fecha_prestamo,$id_salon){
-		$this->db->select('prestamo.id_prestamo,prestamo.id_salon,prestamo.hora_entrega,prestamo.hora_recibe,prestamo.fecha_prestamo,persona.nombre,persona.apellido,salon.aula,salon.ubicacion');
+		$this->db->select('prestamo.observaciones,prestamo.id_prestamo,prestamo.id_salon,prestamo.hora_entrega,prestamo.hora_recibe,prestamo.fecha_prestamo,persona.nombre,persona.apellido,salon.aula,salon.ubicacion');
 		$this->db->from('prestamo');
 		$this->db->join('persona', 'prestamo.cedula=persona.cedula');
 		$this->db->join('salon', 'prestamo.id_salon=salon.id_salon');
@@ -47,7 +44,7 @@ class Prestamos extends CI_Model {
 		return $query->result_array();
 	}
 	public function consulta_general(){
-		$this->db->select('prestamo.id_prestamo,prestamo.id_salon,prestamo.hora_entrega,prestamo.hora_recibe,prestamo.fecha_prestamo,persona.nombre,persona.apellido,salon.aula,salon.ubicacion');
+		$this->db->select('prestamo.observaciones,prestamo.id_prestamo,prestamo.id_salon,prestamo.hora_entrega,prestamo.hora_recibe,prestamo.fecha_prestamo,persona.nombre,persona.apellido,salon.aula,salon.ubicacion');
 		$this->db->from('prestamo');
 		$this->db->join('persona', 'prestamo.cedula=persona.cedula');
 		$this->db->join('salon', 'prestamo.id_salon=salon.id_salon');

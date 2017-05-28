@@ -1,3 +1,7 @@
+<?php if(!$this->session->userdata('nombre_usuario')){
+		redirect(base_url());
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -144,7 +148,7 @@
 							  <div class="control-group">
 							  <label class="control-label" for="date01">Nombre equipo fisico</label>
 							  <div class="controls">
-								<input type="text" class="input" id="idd" name="nombre">
+								<input type="text" class="input" id="idd" name="nombre" placeholder="videobeam1">
 								<!--  en los imput poner un atributo name, el cual y le pongo el nombre que quiera, ese atributo me indica el nombre de la funcion que debo utilizar en el ontroaldor para darle funcionailidad, ese name me captura los datos del formulario  -->
 							  </div>
 							</div> 
@@ -187,7 +191,7 @@
 
 			</div><!--/row-->
 
-			<div class="row-fluid sortable" id="consultaE">
+			<div class="row-fluid sortable visible" id="consultaE">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon white search"></i><span class="break"></span>Consultar Equipos</h2>
@@ -494,6 +498,14 @@
 				  $('#modal_header').addClass('btn-primary');
 				  $('.modal-title').text("Información");	
 				  $('#modal_body').text("Registro exitoso!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}else if($validacion_formulario=='1'){
+			?>
+				<script type="text/javascript">
+				  $('.modal-title').text("Información");	
+				  $('#modal_body').text("El equipo ya esta registrado!");	
 				  $('#myModal').modal('show');
 				</script>
 			<?php

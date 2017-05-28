@@ -22,8 +22,6 @@ $('.editarEquipo').click(function(e){
 	e.preventDefault();
 	$('#myModalEditarEquipo').modal('show');
 });
-
-
 // MODAL ELIMINAR EQUIPO
 $('.borrarEquipo').click(function(e){
 	e.preventDefault();
@@ -38,8 +36,6 @@ $('.borrarEquipo').click(function(e){
   //  $('.id_salon_modal').val(id_salon);
 	$('#myModalEliminarEquipo').modal('show');
 });
-
-
 // Modal editar usuario
 $(".editarUsuario").click(function(e){
 	e.preventDefault();
@@ -82,8 +78,6 @@ $(".borrarUsuario").click(function(e){
     $('#estado_modald').val(estado);
 	$('#myModalEliminarUsuario').modal('show');	
 });
-
-
 // MODAL MODIFICAR REPARACION
 $('.editarReparacion').click(function(e){
 	e.preventDefault();
@@ -103,7 +97,6 @@ $('.editarReparacion').click(function(e){
 // MODAL ELIMINAR REPARACION
 $('.borrarReparacion').click(function(e){
 	e.preventDefault();
-	
     $('#myModalEliminarReparacion').modal('show');
 });
 // Modal modificar aulas
@@ -116,7 +109,6 @@ $('.borrarAula').click(function(e){
 	e.preventDefault();
 	$('#myModalEliminarAula').modal('show');
 });
-
 // Modal modificar rol
 $(".editarRol").click(function(e){
 	e.preventDefault();
@@ -132,7 +124,6 @@ $(".editarRol").click(function(e){
     $('#permisos_modal').val(permisos);
 	$('#myModalEditarRol').modal('show');	
 });
-
 // Modal eliminar rol
 $(".borrarRol").click(function(e){
 	e.preventDefault();
@@ -153,7 +144,7 @@ $(".borrarRol").click(function(e){
 		$("#registro").css("display","block");
 		$("#entrega").css("display","block");
 		$("#consulta").css("display","none");
-		$("#tabla").css("display","none");
+		$("#tablaPrestamo").css("display","none");
 	});
 	$("#consultaP").click(function(e){
 		e.preventDefault();
@@ -161,21 +152,20 @@ $(".borrarRol").click(function(e){
 		$("#registro").css("display","none");
 		$("#entrega").css("display","none");
 		$("#consulta").css("display","block");
-		$("#tabla").css("display","block");
 	});
 	   // Carga de contenido de equipos fisicos
 	$("#registroEF").click(function(e){
 		e.preventDefault();
 		$(".texto>a").text("Registrar");
 		$("#registroE").css("display","block");
-		$("#consultarE").css("display","none");
+		$("#consultaE").css("display","none");
 		$("#tablaE").css("display","none");
 	});
 	$("#consultaEF").click(function(e){
 		e.preventDefault();
 		$(".texto>a").text("Consultar");
 		$("#registroE").css("display","none");
-		$("#consultarE").css("display","block");
+		$("#consultaE").css("display","block");
 		$("#tablaE").css("display","block");
 	});
 	  // Carga de contenido de usuarios
@@ -206,7 +196,7 @@ $(".borrarRol").click(function(e){
 		$(".texto>a").text("Consultar");
 		$("#registroR").css("display","none");
 		$("#consultaR").css("display","block");
-		$("#tablaR").css("display","block");
+		//$("#tablaR").css("display","block");
 	});
 	// Carga de contenido de salones
 	$("#registrarA").click(function(e){
@@ -221,7 +211,7 @@ $(".borrarRol").click(function(e){
 		$(".texto>a").text("Consultar");
 		$("#registroA").css("display","none");
 		$("#consultaA").css("display","block");
-		$("#tablaA").css("display","block");
+		//$("#tablaA").css("display","block");
 	});
 $(document).ready(function(){
    $(".header-nav").load("cabecera");

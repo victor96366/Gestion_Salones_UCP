@@ -1,5 +1,25 @@
 <?php if(!$this->session->userdata('nombre_usuario')){
 		redirect(base_url());
+	}else{
+		/*echo var_dump($listarPermisos);
+		$insertar='';$consultar='';$editar='';$eliminar='';
+		foreach ($listarPermisos as $permisos) {
+			echo $permisos['nombre'];
+			if($permisos['nombre']=='insertar'){
+				echo 'entro a insertar';
+				$insertar='1';
+			}
+			if($permisos['nombre']=='consultar'){
+				echo 'entro a consultar';
+				$consultar='1';
+			}
+			if($permisos['nombre']=='editar'){
+				$editar='1';
+			}
+			if($permisos['nombre']=='eliminar'){
+				$eliminar='1';
+			}
+		}*/	
 	}
 ?>
 <!DOCTYPE html>
@@ -88,7 +108,7 @@
 						<a  href="usuarios"><i class="icon-align-justify"></i><span class="hidden-tablet"> Usuarios</span></a>
 						</li>
 						<li>
-						<a  href="reparacion"><i class="icon-wrench"></i><span class="hidden-tablet"> ReparaciÃ³n</span></a>
+						<a  href="reparacion"><i class="icon-wrench"></i><span class="hidden-tablet"> Reparación</span></a>
 						</li>
 						<li id="aulas">
 						<a  href="aulas"><i class="icon-th"></i><span class="hidden-tablet"> Aulas</span></a>
@@ -98,7 +118,7 @@
 						</li>
 						<li><a href="ayuda"><i class="icon-book"></i><span class="hidden-tablet"> Ayuda</span></a></li>
 						<li><a href="contacto"><i class="icon-envelope"></i><span class="hidden-tablet"> Contacto</span></a></li>
-						<li><a href="<?php echo base_url(); ?>"><i class="icon-lock"></i><span class="hidden-tablet"> Cerrar SesiÃ³n</span></a></li>	
+						<li><a href="<?php echo base_url(); ?>"><i class="icon-lock"></i><span class="hidden-tablet"> Cerrar Sesión</span></a></li>	
 					</ul>
 				</div>
 			</div>
@@ -153,8 +173,8 @@
 								</div>
 							  </div>
 							 <div class="form-actions">
-							 	 <input type="submit" name="registrar" class="btn btn-primary" value="Registrar"></input>
-							 	 <input type="submit" name="consultar" class="btn btn-primary" value="Consultar Roles"></input>
+				 				<input type="submit" name="registrar" class="btn btn-primary" value="Registrar"></input>
+				 				<input type="submit" name="consultar" class="btn btn-primary" value="Consultar Roles"></input>
 							  </div>
 							</fieldset>
 						  </form>
@@ -328,7 +348,7 @@
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div id="modal_header" class="modal-header btn-danger">
-		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã</button>
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
 		        <h4 class="modal-title">titulo</h4>
 		      </div>
 		      <div class="modal-body" >
@@ -418,7 +438,7 @@
 		if($validacion_formulario=='false'){
 			?>
 				<script type="text/javascript">
-				  $('.modal-title').text("InformaciÃ³n");	
+				  $('.modal-title').text("Información");	
 				  $('#modal_body').text("Debe de llenar todos los campos solicitados!");	
 				  $('#myModal').modal('show');
 				</script>
@@ -438,7 +458,7 @@
 		if($validacion_formulario=='false'){
 			?>
 				<script type="text/javascript">
-				  $('.modal-title').text("InformaciÃ³n");	
+				  $('.modal-title').text("Información");	
 				  $('#modal_body').text("El Rol que desea insertar ya esta registrado!");	
 				  $('#myModal').modal('show');
 				</script>

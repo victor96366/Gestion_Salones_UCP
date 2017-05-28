@@ -235,6 +235,7 @@
 								  <th>Hora Inicio</th>
 								  <th>Hora Fin</th>
 								  <th>Fecha</th>
+								  <th>Observaciones</th>
 							  </tr>
 						  </thead>   
 						  <tbody>
@@ -248,6 +249,7 @@
 								<td class="center"><?php echo $prestamos['hora_entrega']; ?></td>
 								<td class="center"><?php echo $prestamos['hora_recibe']; ?></td>
 								<td class="center"><?php echo $prestamos['fecha_prestamo']; ?></td>
+								<td class="center"><?php echo $prestamos['observaciones']; ?></td>
 							</tr>
 							<?php 
 								} 

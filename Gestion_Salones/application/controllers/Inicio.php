@@ -39,8 +39,27 @@ class Inicio extends CI_Controller {
     public function roles() {
         redirect('index.php/Roles/roles');
     }
-
-
-
-
+    public function enviarEmail(){
+        $nombre=$this->input->post('nombre');
+        $telefono=$this->input->post('telefono');
+        $correo=$this->input->post('correo');
+        $observaciones=$this->input->post('observaciones');
+        if(!$nombre or  !$telefono or !$correo or !$observaciones ){
+            $this->session->set_flashdata('correo', '2');
+            redirect('index.php/Inicio/contacto');
+        }else{
+            $this->load->library('email');
+            $this->email->from($correo,'Observaciones '.$nombre);
+            $this->email->to('victor.orozco@ucp.edu.co');
+            $this->email->subject('Gestion de Prestamo de Llaves y Recursos Fisicos');
+            $this->email->message('Buen dia '.$observaciones.' Para comunicarse Responder al correo '.$correo.' o llamar a '.$telefono.' Muchas Gracias');
+            if($this->email->send()){
+                $this->session->set_flashdata('correo', '1');
+                redirect('index.php/Inicio/contacto');
+            }else{
+                $this->session->set_flashdata('correo', '3');
+                redirect('index.php/Inicio/contacto');
+            }
+        }
+    }
 }

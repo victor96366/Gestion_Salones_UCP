@@ -120,30 +120,30 @@
 							<h2><i class="halflings-icon white edit"></i><span class="break"></span>Contacto</h2>
 						</div>
 						<div class="box-content">
-							<form class="form-horizontal">
+							<form class="form-horizontal" action="enviarEmail" method="post">
 							  <fieldset>
 								  <div class="control-group">
 									<label class="control-label" for="focusedInput">Nombre</label>
 									<div class="controls">
-									  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Carlos Muñoz">
+									  <input class="input-xlarge focused" id="focusedInput" name="nombre" type="text" placeholder="Carlos Muñoz">
 									</div>
 								  </div>
 								   <div class="control-group">
 									<label class="control-label" for="focusedInput">Telefono</label>
 									<div class="controls">
-									  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="3124567">
+									  <input class="input-xlarge focused" id="focusedInput" type="text" name="telefono" placeholder="3124567">
 									</div>
 								  </div>
 								    <div class="control-group">
 									<label class="control-label" for="focusedInput">Correo Electronico</label>
 									<div class="controls">
-									  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="carlos@gmail.com">
+									  <input class="input-xlarge focused" id="focusedInput" name="correo" type="text" placeholder="carlos@gmail.com">
 									</div>
 								  </div>       
 								<div class="control-group hidden-phone">
 								  <label class="control-label" for="textarea2">Observaciones</label>
 								  <div class="controls">
-									<textarea class="cleditor" id="textarea2" rows="3"></textarea>
+									<textarea class="cleditor" name="observaciones" id="textarea2" rows="3"></textarea>
 								  </div>
 								</div>
 								<div class="form-actions">
@@ -164,6 +164,22 @@
 		</div><!--/fluid-row-->
 
 	<div class="clearfix"></div>
+	<div class="modal fade" id="myModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div id="modal_header" class="modal-header btn-danger">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+	        <h4 class="modal-title">titulo</h4>
+	      </div>
+	      <div class="modal-body" >
+	        <p id="modal_body">mensaje</p>
+	      </div>
+	      <div class="modal-footer">
+	        <a href="#" class="btn" data-dismiss="modal">Aceptar</a>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	
 	<footer>
 		<p>
@@ -228,6 +244,34 @@
 
 		<script src="<?php echo base_url(); ?>public/js/custom.js"></script>
 	<!-- end: JavaScript-->
-	
+	<?php  $correo = $this->session->flashdata('correo');
+		if($correo=='1'){
+			?>
+				<script type="text/javascript">
+				  $('#modal_header').removeClass('btn-danger');
+				  $('#modal_header').addClass('btn-primary');
+				  $('.modal-title').text("Informacion");	
+				  $('#modal_body').text("El correo fue enviado exitosamente!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}else if($correo=='2'){
+			?>
+				<script type="text/javascript">
+				  $('.modal-title').text("Información");	
+				  $('#modal_body').text("Debe de llenar todos los campos solicitados!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}else if($correo=='3'){
+			?>
+				<script type="text/javascript">
+				  $('.modal-title').text("Información");	
+				  $('#modal_body').text("El correo no pudo ser enviado intente nuevamente!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}	
+	?>
 </body>
 </html>

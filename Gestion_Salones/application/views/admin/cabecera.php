@@ -3,7 +3,8 @@
 	}
 ?>
 <ul class="nav pull-right">
-	<li class="dropdown hidden-phone">
+	<!-- start: User Dropdown -->
+		<li class="dropdown hidden-phone">
 		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 			<i class="icon-bell"></i>
 			<span class="badge red">
@@ -40,8 +41,6 @@
 			</li>	
 		</ul>
 	</li>
-	
-	<!-- start: User Dropdown -->
 	<li class="dropdown">
 		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 			<i class="halflings-icon white user"></i> <?php echo   $this->session->userdata('nombre_usuario');?>
@@ -51,7 +50,6 @@
 			<li class="dropdown-menu-title">
 					<span>OPCIONES</span>
 			</li>
-			<li><a href="#"><i class="halflings-icon user"></i> Perfil</a></li>
 			<li><a href="<?php echo base_url(); ?>"><i class="halflings-icon off"></i> Cerrar Sesión</a></li>
 		</ul>
 	</li>

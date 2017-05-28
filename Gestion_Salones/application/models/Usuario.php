@@ -20,7 +20,7 @@ class Usuario extends CI_Model {
 		$this->db->select('persona.cedula,persona.nombre as nombre_persona,persona.nombre_usuario,persona.correo,persona.telefono,persona.contrasena,rol.nombre as nombre_rol,persona.estado,rol.id_rol');    
 		$this->db->from('persona');
 		$this->db->join('rol', 'rol.id_rol= persona.id_rol');
-		$this->db->where("(persona.cedula='$cedula' OR rol.id_rol='$id_rol' AND persona.estado='$estado')");
+		$this->db->where("(persona.cedula='$cedula' OR rol.id_rol='$id_rol' or persona.estado='$estado')");
 		$this->db->order_by("persona.nombre", "asc");
 		$query = $this->db->get();
 		return $query->result_array();

@@ -61,7 +61,7 @@ class Prestamo extends CI_Controller {
             $id_salon = $this->input->post('id_salon');
             $hora_inicio = date('H:i:s');
             $fecha =date('y-m-d');
-            $datos = array('hora_entrega' => $hora_inicio,'hora_recibe' => '00:00:00','cedula' => $cedula,'id_salon' => $id_salon, 'fecha_prestamo' => $fecha);
+            $datos = array('hora_entrega' => $hora_inicio,'hora_recibe' => '00:00:00','cedula' => $cedula,'id_salon' => $id_salon, 'fecha_prestamo' => $fecha,'observaciones' => 'N/A');
             $datos1 = array('disponibilidad' => '1');
             //insertar usuario
             $this->Prestamos->insertar($datos);
@@ -72,7 +72,7 @@ class Prestamo extends CI_Controller {
         
     }
     public function consultarPrestamo() {
-        if ( ! $this->input->post('cedula')){
+        if ( !$this->input->post('cedula')){
             $this->session->set_flashdata('formulario','false');
             redirect('index.php/Prestamo/prestamo');    
         }else{
@@ -92,10 +92,10 @@ class Prestamo extends CI_Controller {
             $id_salon = $this->input->post('id_salon');
             $observacion = $this->input->post('observacion');
             $hora_fin = date('H:i:s');
-            $datos = array('hora_recibe' => $hora_fin);
+            $datos = array('hora_recibe' => $hora_fin,'observaciones' => $observacion);
             $this->Prestamos->editar($id_prestamo,$datos);
-            $datos1 = array('id_salon' => $id_salon,'id_prestamo' => $id_prestamo,'observacion' => $observacion);
-            $this->Prestamos->insertar_has($datos1);
+            $datos1 = array('disponibilidad' => '0');
+            $this->Prestamos->editar_estado_salon($id_salon,$datos1);
             $this->session->set_flashdata('formulario','2');
             redirect('index.php/Prestamo/prestamo');
         

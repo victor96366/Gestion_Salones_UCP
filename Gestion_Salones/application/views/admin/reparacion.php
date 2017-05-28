@@ -1,3 +1,7 @@
+<?php if(!$this->session->userdata('nombre_usuario')){
+		redirect(base_url());
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +41,7 @@
 	<link rel="shortcut icon" href="img/favicon.ico">
 	<!-- end: Favicon -->
 	<style>
-		.ocultar,#tabla{display: none ;}
+		.ocultar,#tablaR{display: none;}
 		#id_reparacion, #id_reparacion_modal{display: none !important;}
 		#reparacion>ul{
 			display: block;
@@ -89,7 +93,7 @@
 						<li>
 						<a  href="usuarios"><i class="icon-align-justify"></i><span class="hidden-tablet"> Usuarios</span></a>
 						</li>
-						<li id="repar">
+						<li id="reparacion">
 						<a class="dropmenu" href="#"><i class="icon-wrench"></i><span class="hidden-tablet"> Reparación</span></a>
 						<ul>
 							<li id="registrarR"><a class="submenu" href="#"><i class="icon-file-alt"></i><span class="hidden-tablet"> Registrar</span></a></li>
@@ -241,7 +245,7 @@
 
 			
 
-			<div class="row-fluid sortable visible" id="tabla">	
+			<div class="row-fluid sortable visible" id="tablaR">	
 				<div class="box span12">
 					<div class="box-header">
 						<h2><i class="halflings-icon white align-justify"></i><span class="break"></span>Reparación</h2>
@@ -360,7 +364,22 @@
 
 
 	<div class="clearfix"></div>
-	
+	<div class="modal fade" id="myModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div id="modal_header" class="modal-header btn-danger">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	        <h4 class="modal-title">titulo</h4>
+	      </div>
+	      <div class="modal-body" >
+	        <p id="modal_body">mensaje</p>
+	      </div>
+	      <div class="modal-footer">
+	        <a href="#" class="btn" data-dismiss="modal">Aceptar</a>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	<footer>
 
 		<p>
@@ -429,14 +448,14 @@
 	
 
 
-	<?php  $validacion = $this->session->flashdata('carga_usuario');
+	<?php  $validacion = $this->session->flashdata('reparacionset');
 		if($validacion=='true'){
 			?>
 				<script type="text/javascript">
 					$(".texto>a").text("Consultar ");
 					$("#registroR").css("display","none");
 					$("#consultaR").css("display","block");
-					$("#tabla").css("display","block");
+					$("#tablaR").css("display","block");
 				</script>
 			<?php
 		}

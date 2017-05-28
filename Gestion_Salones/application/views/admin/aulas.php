@@ -1,3 +1,7 @@
+<?php if(!$this->session->userdata('nombre_usuario')){
+		redirect(base_url());
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +41,7 @@
 	<link rel="shortcut icon" href="<?php echo base_url(); ?>public/img/favicon.ico">
 	<!-- end: Favicon -->
 	<style>
-		.ocultar,#tablaA{display: none ;}
+		.ocultar,#tablaA{display: none;}
 		#Id_salon, #id_salon_modal{display: none !important;}
 		#aulas>ul{
 			display: block;
@@ -181,7 +185,7 @@
 						<h2><i class="halflings-icon white search"></i><span class="break"></span>Consultar Aulas</h2>
 					</div>
 					<div class="box-content">
-						<form class="form-horizontal" method="post" action="consultar_reparacion">
+						<form class="form-horizontal" method="post" action="consultar_aulas">
 						  <fieldset>
 						  	<div class="control-group">
 								<label class="control-label" for="focusedInput">Aula</label>
@@ -355,20 +359,22 @@
 				<a href="#" class="btn btn-danger">Aceptar</a>
 			</div>
 		</div>
-	<div class="modal hide fade" id="myModal">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Settings</h3>
-		</div>
-		<div class="modal-body">
-			<p>Here settings can be configured...</p>
-		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
-		</div>
-	</div>
-	
+	<div class="modal fade" id="myModal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div id="modal_header" class="modal-header btn-danger">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+		        <h4 class="modal-title">titulo</h4>
+		      </div>
+		      <div class="modal-body" >
+		        <p id="modal_body">mensaje</p>
+		      </div>
+		      <div class="modal-footer">
+		        <a href="#" class="btn" data-dismiss="modal">Aceptar</a>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 	<div class="clearfix"></div>
 	
 	<footer>
@@ -436,6 +442,46 @@
 
 		<script src="<?php echo base_url(); ?>public/js/custom.js"></script>
 	<!-- end: JavaScript-->
+	<?php  $validacion = $this->session->flashdata('cargarAulas');
+		if($validacion=='true'){
+			?>
+				<script type="text/javascript">
+					$(".texto>a").text("Consultar ");
+					$("#registroA").css("display","none");
+					$("#consultaA").css("display","block");
+					$("#tablaA").css("display","block");
+				</script>
+			<?php
+		}
+		$validacion_formulario = $this->session->flashdata('formulario');
+		if($validacion_formulario=='false'){
+			?>
+				<script type="text/javascript">
+				  $('.modal-title').text("Información");	
+				  $('#modal_body').text("Debe de llenar todos los campos solicitados!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}else if($validacion_formulario=='true'){
+			?>
+				<script type="text/javascript">
+				  $('#modal_header').removeClass('btn-danger');
+				  $('#modal_header').addClass('btn-primary');
+				  $('.modal-title').text("InformaciÃ³n");	
+				  $('#modal_body').text("Registro exitoso!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}else if($validacion_formulario=='1'){
+			?>
+				<script type="text/javascript">
+				  $('.modal-title').text("Información");	
+				  $('#modal_body').text("El aula ya esta registrado!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}
+	?>
 	
 </body>
 </html>

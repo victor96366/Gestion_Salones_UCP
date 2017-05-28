@@ -12,6 +12,7 @@ class Roles extends CI_Controller {
 		$this->load->view('index');
     }
     public function roles() {
+        //$data['listarPermisos']= $this->Rol->permisos($this->session->userdata('cedula'));
 		$this->load->view('admin/roles');
     }
     // Cargar Menu
@@ -69,6 +70,7 @@ class Roles extends CI_Controller {
                 
             }
         }else if($this->input->post('consultar')){
+            //$data['listarPermisos']= $this->Rol->permisos($this->session->userdata('cedula'));
             $data['listarRoles']= $this->Rol->listar();
             $this->session->set_flashdata('carga', 'true');
             $this->load->view('admin/roles', $data );

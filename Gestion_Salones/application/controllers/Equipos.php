@@ -1,7 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Equipos extends CI_Controller {
-
     function __construct() {
         parent::__construct();
     }
@@ -26,42 +24,34 @@ class Equipos extends CI_Controller {
     }
     
     public function insertar() {
-       if ( ! $this->input->post('nombre') OR $this->input->post('salon') == "---")
-            {
-           // $this->session->set_flashdata('formulario2','false');                
+       if ( ! $this->input->post('nombre') OR $this->input->post('salon') == "---"){
+            $this->session->set_flashdata('formulario','false');                
             redirect('index.php/Equipos/equiposFisicos');
-             }
-            
+        }else{
             $nombre=$this->input->post('nombre');
             $en=$this->Equipo_fisico->existe_nombre($nombre);
-
-        if($en == TRUE){
-          //  $this->session->set_flashdata('formulario2','false');                
-            redirect('index.php/Equipos/equiposFisicos');
-            }
-
-        if($en == FALSE){
-
-            $salon= $this->input->post('salon');
-            $observacion=$this->input->post('observacion');
-            $fecha_instalacion=$this->input->post('fecha_instalacion');
-           
-            $dat = array('nombre' => $nombre,'fecha_instalacion' => $fecha_instalacion, 'observaciones' => $observacion);
-            $si=1;
-
-            $this->Equipo_fisico->insertar($dat); 
-            
-            // para insertar un 1 es decir SI en el campo de equipo fisico del salon seleccionado 
-            $this->Aula->tiene_equipo_fisico($si, $salon); 
-               
-            //con esto me traigo el id del equipo fisico que se acabo de insertar           
-            $dat3= $this->Equipo_fisico->consultarid_equipo();
-
-            $dat4 = array('id_equipo_fisico' => $dat3,'id_salon' => $salon);
-            $this->Equipo_fisico->insertarsalon_has_equipo($dat4);            
-            
-            }
-        redirect('index.php/Equipos/equiposFisicos');
+            if($en == TRUE){
+                $this->session->set_flashdata('formulario','1');                
+                redirect('index.php/Equipos/equiposFisicos');
+                }else if($en == FALSE){
+                    $salon= $this->input->post('salon');
+                    $observacion=$this->input->post('observacion');
+                    $fecha_instalacion=$this->input->post('fecha_instalacion');
+                   
+                    $dat = array('nombre' => $nombre,'fecha_instalacion' => $fecha_instalacion, 'observaciones' => $observacion);
+                    $si=1;
+                    $this->Equipo_fisico->insertar($dat); 
+                    // para insertar un 1 es decir SI en el campo de equipo fisico del salon seleccionado 
+                    $this->Aula->tiene_equipo_fisico($si, $salon); 
+                       
+                    //con esto me traigo el id del equipo fisico que se acabo de insertar           
+                    $dat3= $this->Equipo_fisico->consultarid_equipo();
+                    $dat4 = array('id_equipo_fisico' => $dat3,'id_salon' => $salon);
+                    $this->Equipo_fisico->insertarsalon_has_equipo($dat4);   
+                    $this->session->set_flashdata('formulario', 'true');  
+                    redirect('index.php/Equipos/equiposFisicos');       
+                }
+        }
     }
    
     public function consultarequipos(){
@@ -70,7 +60,6 @@ class Equipos extends CI_Controller {
         if($this->input->post('consultartodo')){
             
             $data['listarequipo']= $this->Equipo_fisico->listartodo();
-
             $this->session->set_flashdata('carga_usuario', 'true');
             $this->load->view('admin/equipo', $data); 
         }
@@ -84,7 +73,6 @@ class Equipos extends CI_Controller {
             $this->session->set_flashdata('carga_usuario', 'true');
             $this->load->view('admin/equipo', $data); 
             } 
-
             else if($salon == "---"){
             $data['listarequipo']= $this->Equipo_fisico->listar_condicion_fecha($fecha_instalacion);
             $this->session->set_flashdata('carga_usuario', 'true');
@@ -94,22 +82,16 @@ class Equipos extends CI_Controller {
              
         } 
     }
-
     public function eliminar(){
         $id_equipo_fisico = $this->input->post('id_equipo_fisico_modal');
         echo "METODO ELIMINAR";
         echo "$id_equipo_fisico";
         $this->Equipo_fisico->eliminar_equipo($id_equipo_fisico);
         $this->Equipo_fisico->eliminar_equipo_has_salon($id_equipo_fisico);
-
         $this->session->set_flashdata('formulario', 'true');
-         redirect('index.php/Equipos/equiposFisicos');
-
-
+        redirect('index.php/Equipos/equiposFisicos');
     }
-
     
-
     public function reparacion() {
         redirect('index.php/Reparacion/reparacion');
     }
@@ -128,5 +110,4 @@ class Equipos extends CI_Controller {
     public function ayuda() {
         redirect('index.php/Inicio/ayuda');
     }
-
 }

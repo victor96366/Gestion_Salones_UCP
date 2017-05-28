@@ -21,20 +21,6 @@
 	<link id="base-style" href="<?php echo base_url(); ?>public/css/style.css" rel="stylesheet">
 	<link id="base-style-responsive" href="<?php echo base_url(); ?>public/css/style-responsive.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
-	<!-- end: CSS -->
-	
-
-	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-	  	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<link id="ie-style" href="css/ie.css" rel="stylesheet">
-	<![endif]-->
-	
-	<!--[if IE 9]>
-		<link id="ie9style" href="css/ie9.css" rel="stylesheet">
-	<![endif]-->
-		
-	<!-- start: Favicon -->
 	<link rel="shortcut icon" href="<?php echo base_url(); ?>img/favicon.ico">
 	<!-- end: Favicon -->
 	
@@ -63,8 +49,6 @@
 			<div class="row-fluid">
 				<div class="login-box">
 					<div class="icons">
-						<a href="index.html"><i class="halflings-icon home"></i></a>
-						<a href="#"><i class="halflings-icon cog"></i></a>
 					</div>
 					<h2>Ingrese a su cuenta</h2>
 					<form class="form-horizontal"  method="post" action="index.php/Login/consultar">
@@ -87,7 +71,6 @@
 							<div id="alert2" class="alert alert-danger">
 							  <strong>Error!</strong> Debe ingresar todos los datos.
 							</div>
-							<label class="remember" for="remember"><input type="checkbox" id="remember" />Recordar Contraseña</label>
 
 							<div id="ingresar" class="button-login">	
 								<button type="submit" id="loguear"  class="btn btn-primary">Ingresar</button>
@@ -105,108 +88,106 @@
 		</div><!--/fluid-row-->
 
 		<div class="modal hide fade" id="myModalRC">
-			<div class="modal-body">
-				<div class="row-fluid sortable">
-				<div class="box span12">
-				<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Recuperar Contraseña</h2>
-					</div>
-					<div class="box-content">
-						<form class="form-horizontal">
-							<fieldset>
-							  <div class="control-group">
-								<label class="control-label" for="focusedInput">Nombre de Usuario</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="carlosJ">
-								</div>
-							  </div>
-							  <div class="control-group">
-								<label class="control-label" for="focusedInput">Correo</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="j@gmail.com">
-								</div>
-							  </div>
-							</fieldset>
-						  </form>
-					
-					</div>
-				</div><!--/span-->
-			
-			</div><!--/row-->
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-primary">Guardar</a>
-			</div>
+			<form class="form-horizontal" method="post" action="index.php/Login/recuperar_pass">
+				<div class="modal-body">
+					<div class="row-fluid sortable">
+					<div class="box span12">
+					<div class="box-header" data-original-title>
+							<h2><i class="halflings-icon white edit"></i><span class="break"></span>Recuperar Contraseña</h2>
+						</div>
+						<div class="box-content">
+								<fieldset>
+								  <div class="control-group">
+									<label class="control-label" for="focusedInput">Codigo</label>
+									<div class="controls">
+									  <input class="input-xlarge focused" id="focusedInput" name="codigo" type="text" placeholder="1088435274">
+									</div>
+								  </div>
+								  <div class="control-group">
+									<label class="control-label" for="focusedInput">Correo</label>
+									<div class="controls">
+									  <input class="input-xlarge focused" id="focusedInput" name="correo" type="text" placeholder="j@gmail.com">
+									</div>
+								  </div>
+								</fieldset>
+						</div>
+					</div><!--/span-->
+				
+				</div><!--/row-->
+				</div>
+				<div class="modal-footer">
+					<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+					<button type="submit"  class="btn btn-primary">Guardar</button>
+				</div>
+			</form>
 		</div>
 
 
 
 		<div class="modal hide fade" id="myModalR">
-			<div class="modal-body">
-				<div class="row-fluid sortable">
-				<div class="box span12">
-					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Registro Usuario</h2>
-					</div>
-					<div class="box-content">
-						<form class="form-horizontal">
-							<fieldset>
-							  <div class="control-group">
-								<label class="control-label" for="focusedInput">Codigo</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="1076367123">
+			<form class="form-horizontal" method="post" action="index.php/Login/registrar_usuario">
+				<div class="modal-body">
+					<div class="row-fluid sortable">
+					<div class="box span12">
+						<div class="box-header" data-original-title>
+							<h2><i class="halflings-icon white edit"></i><span class="break"></span>Registro Usuario</h2>
+						</div>
+						<div class="box-content">
+								<fieldset>
+								  <div class="control-group">
+									<label class="control-label" for="focusedInput">Codigo</label>
+									<div class="controls">
+									  <input class="input-xlarge focused" id="focusedInput" name="codigo" type="text" placeholder="1076367123">
+									</div>
+								  </div>
+								  <div class="control-group">
+									<label class="control-label" for="focusedInput">Nombre</label>
+									<div class="controls">
+									  <input class="input-xlarge focused" id="focusedInput" name="nombre" type="text" placeholder="Juan Carlos">
+									</div>
+								  </div>
+								  <div class="control-group">
+									<label class="control-label" for="focusedInput">Apellido</label>
+									<div class="controls">
+									  <input class="input-xlarge focused" id="focusedInput" name="apellido" type="text" placeholder="Blando">
+									</div>
+								  </div>
+								  <div class="control-group">
+									<label class="control-label" for="focusedInput">Nombre Usuario</label>
+									<div class="controls">
+									  <input class="input-xlarge focused" id="focusedInput" type="text" name="usuario"placeholder="Jblandon">
+									</div>
+								  </div>
+								  <div class="control-group">
+									<label class="control-label" for="focusedInput">Correo</label>
+									<div class="controls">
+									  <input class="input-xlarge focused" id="focusedInput" name="correo" type="text" placeholder="j@gmail.com">
+									</div>
+								  </div>
+								  <div class="control-group">
+									<label class="control-label" for="focusedInput">Telefono</label>
+									<div class="controls">
+									  <input class="input-xlarge focused" id="focusedInput" name="telefono" type="text" placeholder="3145672345">
+									</div>
+								  </div>
+								  <div class="control-group">
+								  	<label class="control-label" for="focusedInput">Contraseña</label>
+								  	<div class="controls">
+										<input class="input-xlarge focused" name="contrasena"  id="password" type="password" placeholder="Conraseña"/>
+									</div>
 								</div>
-							  </div>
-							  <div class="control-group">
-								<label class="control-label" for="focusedInput">Nombre</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Juan Carlos">
-								</div>
-							  </div>
-							  <div class="control-group">
-								<label class="control-label" for="focusedInput">Apellido</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Blando">
-								</div>
-							  </div>
-							  <div class="control-group">
-								<label class="control-label" for="focusedInput">Nombre Usuario</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Jblandon">
-								</div>
-							  </div>
-							  <div class="control-group">
-								<label class="control-label" for="focusedInput">Correo</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="j@gmail.com">
-								</div>
-							  </div>
-							  <div class="control-group">
-								<label class="control-label" for="focusedInput">Telefono</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="3145672345">
-								</div>
-							  </div>
-							  <div class="control-group">
-							  	<label class="control-label" for="focusedInput">Contraseña</label>
-							  	<div class="controls">
-									<input class="input-xlarge focused" name="password" id="password" type="password" placeholder="Conraseña"/>
-								</div>
-							</div>
-							</fieldset>
-						  </form>
-					
-					</div>
-				</div><!--/span-->
-			
-			</div><!--/row-->
-			
-			</div>	
-			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-primary">Guardar</a>
-			</div>
+								</fieldset>
+						</div>
+					</div><!--/span-->
+				
+				</div><!--/row-->
+				
+				</div>	
+				<div class="modal-footer">
+					<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+					<button type="submit"  class="btn btn-primary">Guardar</button>
+				</div>
+			</form>
 		</div>
 	    <div class="common-modal modal fade" id="common-Modal1" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-content">
@@ -216,6 +197,22 @@
 				</ul>
 			</div>
 		</div>
+		<div class="modal fade" id="myModal">
+	    <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div id="modal_header" class="modal-header btn-danger">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		        <h4 class="modal-title">titulo</h4>
+		      </div>
+		      <div class="modal-body" >
+		        <p id="modal_body">mensaje</p>
+		      </div>
+		      <div class="modal-footer">
+		        <a href="#" class="btn" data-dismiss="modal">Aceptar</a>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 	<!-- start: JavaScript-->
 		<script src="<?php echo base_url(); ?>public/js/jquery-1.9.1.min.js"></script>
 	<script src="<?php echo base_url(); ?>public/js/jquery-migrate-1.0.0.min.js"></script>
@@ -272,6 +269,57 @@
 
 		<script src="<?php echo base_url(); ?>public/js/custom.js"></script>
 	<!-- end: JavaScript-->
+	<?php
+		$validacion_formulario = $this->session->flashdata('formulario');
+		if($validacion_formulario=='false'){
+			?>
+				<script type="text/javascript">
+				  $('.modal-title').text("Información");	
+				  $('#modal_body').text("Debe de llenar todos los campos solicitados!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}else if($validacion_formulario=='true'){
+			?>
+				<script type="text/javascript">
+				  $('#modal_header').removeClass('btn-danger');
+				  $('#modal_header').addClass('btn-primary');
+				  $('.modal-title').text("Información");	
+				  $('#modal_body').text("Registro exitoso!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}
+	?>	
+	<?php  $correo = $this->session->flashdata('correo');
+		if($correo=='1'){
+			?>
+				<script type="text/javascript">
+				  $('#modal_header').removeClass('btn-danger');
+				  $('#modal_header').addClass('btn-primary');
+				  $('.modal-title').text("Informacion");	
+				  $('#modal_body').text("El correo fue enviado exitosamente!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}else if($correo=='2'){
+			?>
+				<script type="text/javascript">
+				  $('.modal-title').text("Información");	
+				  $('#modal_body').text("Debe de llenar todos los campos solicitados!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}else if($correo=='3'){
+			?>
+				<script type="text/javascript">
+				  $('.modal-title').text("Información");	
+				  $('#modal_body').text("El correo no pudo ser enviado intente nuevamente!");	
+				  $('#myModal').modal('show');
+				</script>
+			<?php
+		}	
+	?>
 	
 </body>
 </html>

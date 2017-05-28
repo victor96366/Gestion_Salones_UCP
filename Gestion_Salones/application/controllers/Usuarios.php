@@ -40,7 +40,7 @@ class Usuarios extends CI_Controller {
     public function ayuda() {
     	redirect('index.php/Inicio/ayuda');
     }
-     public function registrar_usuario(){
+    public function registrar_usuario(){
         if (!$this->input->post('codigo') or !$this->input->post('nombre') or !$this->input->post('apellido')
             or !$this->input->post('usuario') or !$this->input->post('correo') or !$this->input->post('contrasena') or !$this->input->post('telefono') or !$this->input->post('selectRol'))
         {
@@ -52,7 +52,7 @@ class Usuarios extends CI_Controller {
             $apellido = $this->input->post('apellido');
             $usuario = $this->input->post('usuario');
             $correo = $this->input->post('correo');
-            $contrasena = $this->input->post('contrasena');
+            $contrasena = md5($this->input->post('contrasena'));
             $telefono = $this->input->post('telefono');
             $rol = $this->input->post('selectRol');
             $fecha_creacion=date('y-m-d');
@@ -87,14 +87,14 @@ class Usuarios extends CI_Controller {
         }
     }
     public function editar_usuario(){
-        if (!$this->input->post('correo') or !$this->input->post('password') or                                !$this->input->post('telefono') or !$this->input->post('selectRolModal'))
+        if (!$this->input->post('correo') or !$this->input->post('password') or !$this->input->post('telefono') or !$this->input->post('selectRolModal'))
         {
             $this->session->set_flashdata('formulario','false');
             redirect('index.php/Usuarios/data');
         }else{
             $cedula = $this->input->post('cedula');
             $correo = $this->input->post('correo');
-            $contrasena = $this->input->post('password');
+            $contrasena = md5($this->input->post('password'));
             $telefono = $this->input->post('telefono');
             $rol = $this->input->post('selectRolModal');
             $estado = $this->input->post('selectEstadoModal');
